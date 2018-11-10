@@ -1,4 +1,4 @@
 listing_index:
   path:
     en: /list/all
-  controller: App\UserInterface\Listing\ListingController::index
+  controller: App\UserInterface\Website\Listing\ListingController::index

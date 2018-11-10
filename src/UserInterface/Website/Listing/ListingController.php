@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UserInterface\Listing;
+namespace App\UserInterface\Website\Listing;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
