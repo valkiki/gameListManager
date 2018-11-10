@@ -1,4 +1,6 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-CREATE
+    {{ form_start(create_form) }}
+    {{ form_widget(create_form) }}
+    {{ form_end(create_form) }}
 {% endblock %}
