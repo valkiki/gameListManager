@@ -20,6 +20,7 @@ class ListingControllerTest extends WebTestCase
         $this->client = static::createClient();
         $this->routes = [
             '/list/all' => 'GET',
+            '/list/create' => 'POST'
         ];
     }
 
@@ -30,7 +31,9 @@ class ListingControllerTest extends WebTestCase
     {
         foreach ($this->routes as $route => $method) {
             $this->client->request($method, $route);
+            var_dump($this->client->getResponse());
             $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+
         }
 
     }

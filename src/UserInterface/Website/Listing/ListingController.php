@@ -22,4 +22,14 @@ class ListingController extends  AbstractController
             '@Listing/index.html.twig'
         );
     }
+
+    /**
+     * @return Response
+     */
+    public function create() : Response
+    {
+        return $this->render(
+            '@Listing/create.html.twig'
+        );
+    }
 }
