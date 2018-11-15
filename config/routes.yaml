@@ -1,4 +1,8 @@
 listing_index:
   path:
     en: /list/all
-  controller: App\UserInterface\Listing\ListingController::index
+  controller: App\UserInterface\Website\Listing\ListingController::index
+listing_create:
+  path:
+    en: /list/create
+  controller: App\UserInterface\Website\Listing\ListingController::create
