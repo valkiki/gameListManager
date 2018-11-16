@@ -11,12 +11,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 
 class ListingType extends AbstractType
 {
-    public function buildForm
-    (
+    public function buildForm(
         FormBuilderInterface $builder,
         array $options
-    )
-    {
+    ) {
         $builder
             ->add('name', TextType::class)
             ->add('Save', SubmitType::class, array('label' => 'Create Listing'));

@@ -6,12 +6,8 @@ namespace App\UserInterface\Website\UseCase\Listing;
 
 use App\Core\Listing\Entity\Listing;
 use App\UserInterface\Website\Form\Handler\CreateListingFormHandler;
-use App\UserInterface\Website\Form\Type\ListingType;
 use Hostnet\Component\FormHandler\HandlerFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

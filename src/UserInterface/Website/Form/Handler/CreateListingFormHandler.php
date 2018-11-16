@@ -27,12 +27,10 @@ class CreateListingFormHandler implements HandlerTypeInterface
      * @param EntityManagerInterface $entityManager
      * @param FlashBagInterface $flashBag
      */
-    public function __construct
-    (
+    public function __construct(
         EntityManagerInterface $entityManager,
         FlashBagInterface $flashBag
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->flashBag = $flashBag;
     }
@@ -46,8 +44,7 @@ class CreateListingFormHandler implements HandlerTypeInterface
     {
         $config->setType(ListingType::class);
 
-        $config->onSuccess(function(Listing $listing){
-
+        $config->onSuccess(function (Listing $listing) {
             $this->entityManager->persist($listing);
             $this->entityManager->flush();
 

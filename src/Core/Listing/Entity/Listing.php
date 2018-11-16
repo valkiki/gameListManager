@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Core\Listing\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -53,6 +54,4 @@ class Listing
     {
         $this->name = $name;
     }
-
-
 }

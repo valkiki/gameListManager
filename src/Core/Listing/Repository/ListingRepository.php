@@ -8,6 +8,4 @@ use Doctrine\ORM\EntityRepository;
 
 class ListingRepository extends EntityRepository
 {
-
 }
-
