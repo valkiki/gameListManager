@@ -44,15 +44,36 @@ class CreateListingFormHandler implements HandlerTypeInterface
      *
      * @param HandlerConfigInterface $config
      */
-    public function configure(HandlerConfigInterface $config)
+    public function configure(HandlerConfigInterface $config): void
     {
         $config->setType(ListingType::class);
 
         $config->onSuccess(function (Listing $listing) {
-            $this->entityManager->persist($listing);
-            $this->entityManager->flush();
-
-            $this->flashBag->add('success', 'The listing has been created.');
+            $this->doPersist($listing);
+            $this->doAddFlash(
+                'success',
+                'The listing has been created.'
+            );
         });
+    }
+
+    /**
+     * @param Listing $listing
+     */
+    private function doPersist(Listing $listing): void
+    {
+        $this->entityManager->persist($listing);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * @param string $type
+     * @param string $message
+     */
+    private function doAddFlash(
+        string $type,
+        string $message
+    ): void {
+        $this->flashBag->add($type, $message);
     }
 }

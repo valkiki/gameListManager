@@ -13,10 +13,10 @@
 <body>
 <ul class="nav justify-content-center">
     <li class="nav-item">
-        <a class="nav-link active" href="{{ path('listing_index') }}">Mes listes</a>
+        <a class="nav-link active" href="{{ path('listing_index') }}">{{ 'app.my_listings'|trans(domain='app') }}</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{ path('listing_create') }}">Ajouter une liste</a>
+        <a class="nav-link" href="{{ path('listing_create') }}">{{ 'app.create_listing'|trans(domain='app') }}</a>
     </li>
 </ul>
 {% block body %}{% endblock %}
