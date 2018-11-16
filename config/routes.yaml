@@ -6,3 +6,7 @@ listing_create:
   path:
     en: /list/create
   controller: App\UserInterface\Website\UseCase\Listing\ListingController::create
+listing_edit:
+  path:
+    en: /list/edit/{id}
+  controller: App\UserInterface\Website\UseCase\Listing\ListingController::edit
