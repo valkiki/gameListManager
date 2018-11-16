@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\UserInterface\Website\Listing;
+namespace App\UserInterface\Website\UseCase\Listing;
 
 use App\Core\Listing\Entity\Listing;
+use App\UserInterface\Website\Form\Type\ListingType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,8 +23,13 @@ class ListingController extends AbstractController
      */
     public function index(): Response
     {
+        $listings = $this->getDoctrine()->getRepository(Listing::class)->findAll();
+
         return $this->render(
-            '@Listing/index.html.twig'
+            '@Listing/index.html.twig',
+            [
+                'listings' => $listings
+            ]
         );
     }
 
@@ -33,12 +39,29 @@ class ListingController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $listing = new Listing();
+        $this->createForm(
+            ListingType::class,
+            new Listing()
+        );
 
         $form = $this->createFormBuilder($listing)
             ->add('name', TextType::class)
             ->add('Enregistrer', SubmitType::class, array('label' => 'Create Listing'))
             ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $task = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($task);
+            $em->flush();
+
+            $this->redirectToRoute('listing_index');
+
+        }
 
         return $this->render(
             '@Listing/create.html.twig',
