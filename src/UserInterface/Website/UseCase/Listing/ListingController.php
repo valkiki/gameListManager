@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace App\UserInterface\Website\UseCase\Listing;
 
 use App\Core\Listing\Entity\Listing;
+use App\UserInterface\Website\Form\Handler\CreateListingFormHandler;
 use App\UserInterface\Website\Form\Type\ListingType;
+use Hostnet\Component\FormHandler\HandlerFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,6 +22,16 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ListingController extends AbstractController
 {
+    /**
+     * @var HandlerFactoryInterface
+     */
+    private $handlerFactory;
+
+    public function __construct(HandlerFactoryInterface $handlerFactory)
+    {
+        $this->handlerFactory = $handlerFactory;
+    }
+
     /**
      * @return Response
      */
@@ -39,34 +53,16 @@ class ListingController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $this->createForm(
-            ListingType::class,
-            new Listing()
-        );
+        $handler = $this->handlerFactory->create(CreateListingFormHandler::class);
 
-        $form = $this->createFormBuilder($listing)
-            ->add('name', TextType::class)
-            ->add('Enregistrer', SubmitType::class, array('label' => 'Create Listing'))
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $task = $form->getData();
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($task);
-            $em->flush();
-
-            $this->redirectToRoute('listing_index');
-
+        if (($response = $handler->handle($request, new Listing())) instanceof RedirectResponse) {
+            return $response;
         }
 
         return $this->render(
             '@Listing/create.html.twig',
             [
-                'create_form' => $form->createView()
+                'create_form' => $handler->getForm()->createView()
             ]
         );
     }
