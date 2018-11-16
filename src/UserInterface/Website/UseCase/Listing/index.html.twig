@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {% for listing in listings %}
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ listing.name }}</h5>
+                    <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                    <a href="#" class="card-link">See the listing</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
