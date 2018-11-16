@@ -50,8 +50,12 @@ class ListingController extends AbstractController
     public function create(Request $request): Response
     {
         $handler = $this->handlerFactory->create(CreateListingFormHandler::class);
+        $response = $handler->handle(
+            $request,
+            new Listing()
+        );
 
-        if (($response = $handler->handle($request, new Listing())) instanceof RedirectResponse) {
+        if ($response instanceof RedirectResponse) {
             return $response;
         }
 

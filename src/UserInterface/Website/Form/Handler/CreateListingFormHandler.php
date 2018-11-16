@@ -11,6 +11,10 @@ use Hostnet\Component\FormHandler\HandlerConfigInterface;
 use Hostnet\Component\FormHandler\HandlerTypeInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
+/**
+ * Class CreateListingFormHandler
+ * @package App\UserInterface\Website\Form\Handler
+ */
 class CreateListingFormHandler implements HandlerTypeInterface
 {
     /**
