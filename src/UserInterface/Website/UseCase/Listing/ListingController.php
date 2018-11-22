@@ -78,7 +78,7 @@ class ListingController extends AbstractController
         $handler = $this->handlerFactory->create(EditListingFormHandler::class);
         $response = $handler->handle(
             $request,
-            $listing
+            $listing ?? new Listing()
         );
 
         if ($response instanceof RedirectResponse) {
