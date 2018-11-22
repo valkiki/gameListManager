@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Website\Form\Handler;
 
+use App\Core\Infrastructure\Persistence\DoctrineEntityManager;
 use App\Core\Listing\Entity\Listing;
 use App\UserInterface\Website\Form\Type\ListingType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,13 +19,14 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 class EditListingFormHandler implements HandlerTypeInterface
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
      * @var FlashBagInterface
      */
     private $flashBag;
+
+    /**
+     * @var DoctrineEntityManager
+     */
+    private $doctrineEntityManager;
 
     /**
      * CreateListingFormHandler constructor.
@@ -32,11 +34,11 @@ class EditListingFormHandler implements HandlerTypeInterface
      * @param FlashBagInterface $flashBag
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
+        DoctrineEntityManager $doctrineEntityManager,
         FlashBagInterface $flashBag
     ) {
-        $this->entityManager = $entityManager;
         $this->flashBag = $flashBag;
+        $this->doctrineEntityManager = $doctrineEntityManager;
     }
 
     /**
@@ -49,21 +51,12 @@ class EditListingFormHandler implements HandlerTypeInterface
         $config->setType(ListingType::class);
 
         $config->onSuccess(function (Listing $listing) {
-            $this->doPersist($listing);
+            $this->doctrineEntityManager->persist($listing);
             $this->doAddFlash(
                 'success',
                 'The listing has been updated.'
             );
         });
-    }
-
-    /**
-     * @param Listing $listing
-     */
-    private function doPersist(Listing $listing): void
-    {
-        $this->entityManager->persist($listing);
-        $this->entityManager->flush();
     }
 
     /**

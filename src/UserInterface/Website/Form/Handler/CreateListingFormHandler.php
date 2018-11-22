@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Website\Form\Handler;
 
+use App\Core\Infrastructure\Persistence\DoctrineEntityManager;
 use App\Core\Listing\Entity\Listing;
 use App\UserInterface\Website\Form\Type\ListingType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,13 +19,14 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 class CreateListingFormHandler implements HandlerTypeInterface
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-    /**
      * @var FlashBagInterface
      */
     private $flashBag;
+
+    /**
+     * @var DoctrineEntityManager
+     */
+    private $doctrineEntityManager;
 
     /**
      * CreateListingFormHandler constructor.
@@ -32,11 +34,11 @@ class CreateListingFormHandler implements HandlerTypeInterface
      * @param FlashBagInterface $flashBag
      */
     public function __construct(
-        EntityManagerInterface $entityManager,
+        DoctrineEntityManager $doctrineEntityManager,
         FlashBagInterface $flashBag
     ) {
-        $this->entityManager = $entityManager;
         $this->flashBag = $flashBag;
+        $this->doctrineEntityManager = $doctrineEntityManager;
     }
 
     /**
@@ -49,9 +51,7 @@ class CreateListingFormHandler implements HandlerTypeInterface
         $config->setType(ListingType::class);
 
         $config->onSuccess(function (Listing $listing) {
-            $this->entityManager->persist($listing);
-            $this->entityManager->flush();
-
+            $this->doctrineEntityManager->persist($listing);
             $this->flashBag->add('success', 'The listing has been created.');
         });
     }
