@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Infrastructure\Persistence;
+namespace App\Infrastructure\Persistence;
 
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -30,17 +30,9 @@ class DoctrineEntityManager
      * @param $entity
      * @param bool $flush
      */
-    public function persist($entity, $flush = true): void
+    public function persist($entity): void
     {
         $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function flush() : void
-    {
         $this->getEntityManager()->flush();
     }
 

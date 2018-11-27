@@ -27,13 +27,11 @@ class ListingControllerTest extends WebTestCase
     /**
      * @test
      */
-    public function hasAvailable()
+    public function isAvailable()
     {
         foreach ($this->routes as $route => $method) {
             $this->client->request($method, $route);
-            var_dump($this->client->getResponse());
             $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
         }
 
     }

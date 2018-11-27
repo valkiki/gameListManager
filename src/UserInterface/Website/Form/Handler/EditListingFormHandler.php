@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Website\Form\Handler;
 
-use App\Core\Infrastructure\Persistence\DoctrineEntityManager;
+use App\Infrastructure\Persistence\DoctrineEntityManager;
 use App\Core\Listing\Entity\Listing;
 use App\UserInterface\Website\Form\Type\ListingType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -52,21 +52,7 @@ class EditListingFormHandler implements HandlerTypeInterface
 
         $config->onSuccess(function (Listing $listing) {
             $this->doctrineEntityManager->persist($listing);
-            $this->doAddFlash(
-                'success',
-                'The listing has been updated.'
-            );
+            $this->flashBag->add('success', 'The listing has been updated.');
         });
-    }
-
-    /**
-     * @param string $type
-     * @param string $message
-     */
-    private function doAddFlash(
-        string $type,
-        string $message
-    ): void {
-        $this->flashBag->add($type, $message);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Website\Form\Handler;
 
-use App\Core\Infrastructure\Persistence\DoctrineEntityManager;
+use App\Infrastructure\Persistence\DoctrineEntityManager;
 use App\Core\Listing\Entity\Listing;
 use App\UserInterface\Website\Form\Type\ListingType;
 use Doctrine\ORM\EntityManagerInterface;
