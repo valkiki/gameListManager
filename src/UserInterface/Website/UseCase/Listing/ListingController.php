@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace App\UserInterface\Website\UseCase\Listing;
 
 use App\Core\Listing\Entity\Listing;
-use App\UserInterface\Website\Form\Handler\CreateListingFormHandler;
-use App\UserInterface\Website\Form\Handler\EditListingFormHandler;
+use App\UserInterface\Website\Form\Handler\PostListingFormHandler;
 use Hostnet\Component\FormHandler\HandlerFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -50,7 +49,7 @@ class ListingController extends AbstractController
      */
     public function create(Request $request): Response
     {
-        $handler = $this->handlerFactory->create(CreateListingFormHandler::class);
+        $handler = $this->handlerFactory->create(PostListingFormHandler::class);
         $response = $handler->handle(
             $request,
             new Listing()
@@ -73,9 +72,9 @@ class ListingController extends AbstractController
      * @param Listing $listing
      * @return Response
      */
-    public function edit(Request $request, Listing $listing) : Response
+    public function edit(Request $request, Listing $listing): Response
     {
-        $handler = $this->handlerFactory->create(EditListingFormHandler::class);
+        $handler = $this->handlerFactory->create(PostListingFormHandler::class);
         $response = $handler->handle(
             $request,
             $listing ?? new Listing()

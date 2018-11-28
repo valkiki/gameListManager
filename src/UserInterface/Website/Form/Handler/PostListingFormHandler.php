@@ -13,10 +13,10 @@ use Hostnet\Component\FormHandler\HandlerTypeInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
- * Class EditListingFormHandler
+ * Class PostListingFormHandler
  * @package App\UserInterface\Website\Form\Handler
  */
-class EditListingFormHandler implements HandlerTypeInterface
+class PostListingFormHandler implements HandlerTypeInterface
 {
     /**
      * @var FlashBagInterface
@@ -29,14 +29,15 @@ class EditListingFormHandler implements HandlerTypeInterface
     private $doctrineEntityManager;
 
     /**
-     * CreateListingFormHandler constructor.
-     * @param EntityManagerInterface $entityManager
+     * PostListingFormHandler constructor.
+     * @param DoctrineEntityManager $doctrineEntityManager
      * @param FlashBagInterface $flashBag
      */
     public function __construct(
         DoctrineEntityManager $doctrineEntityManager,
         FlashBagInterface $flashBag
-    ) {
+    )
+    {
         $this->flashBag = $flashBag;
         $this->doctrineEntityManager = $doctrineEntityManager;
     }
@@ -52,7 +53,7 @@ class EditListingFormHandler implements HandlerTypeInterface
 
         $config->onSuccess(function (Listing $listing) {
             $this->doctrineEntityManager->persist($listing);
-            $this->flashBag->add('success', 'The listing has been updated.');
+            $this->flashBag->add('success', 'The listing has been posted.');
         });
     }
 }
