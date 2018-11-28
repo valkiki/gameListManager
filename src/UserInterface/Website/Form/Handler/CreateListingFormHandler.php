@@ -46,7 +46,7 @@ class CreateListingFormHandler implements HandlerTypeInterface
      *
      * @param HandlerConfigInterface $config
      */
-    public function configure(HandlerConfigInterface $config)
+    public function configure(HandlerConfigInterface $config): void
     {
         $config->setType(ListingType::class);
 
