@@ -6,6 +6,7 @@ namespace App\UserInterface\Website\UseCase\Listing;
 
 use App\Core\Listing\Entity\Listing;
 use App\UserInterface\Website\Form\Handler\CreateListingFormHandler;
+use App\UserInterface\Website\Form\Handler\EditListingFormHandler;
 use Hostnet\Component\FormHandler\HandlerFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -60,7 +61,32 @@ class ListingController extends AbstractController
         }
 
         return $this->render(
-            '@Listing/create.html.twig',
+            '@Listing/form.html.twig',
+            [
+                'create_form' => $handler->getForm()->createView()
+            ]
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param Listing $listing
+     * @return Response
+     */
+    public function edit(Request $request, Listing $listing) : Response
+    {
+        $handler = $this->handlerFactory->create(EditListingFormHandler::class);
+        $response = $handler->handle(
+            $request,
+            $listing ?? new Listing()
+        );
+
+        if ($response instanceof RedirectResponse) {
+            return $response;
+        }
+
+        return $this->render(
+            '@Listing/form.html.twig',
             [
                 'create_form' => $handler->getForm()->createView()
             ]

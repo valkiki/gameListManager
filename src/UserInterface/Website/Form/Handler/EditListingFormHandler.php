@@ -13,10 +13,10 @@ use Hostnet\Component\FormHandler\HandlerTypeInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
- * Class CreateListingFormHandler
+ * Class EditListingFormHandler
  * @package App\UserInterface\Website\Form\Handler
  */
-class CreateListingFormHandler implements HandlerTypeInterface
+class EditListingFormHandler implements HandlerTypeInterface
 {
     /**
      * @var FlashBagInterface
@@ -52,7 +52,7 @@ class CreateListingFormHandler implements HandlerTypeInterface
 
         $config->onSuccess(function (Listing $listing) {
             $this->doctrineEntityManager->persist($listing);
-            $this->flashBag->add('success', 'The listing has been created.');
+            $this->flashBag->add('success', 'The listing has been updated.');
         });
     }
 }
