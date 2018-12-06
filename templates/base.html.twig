@@ -19,6 +19,13 @@
         <a class="nav-link" href="{{ path('listing_create') }}">{{ 'app.create_listing'|trans(domain='app') }}</a>
     </li>
 </ul>
+<div class="col-sm-12">
+    {% for label, messages in app.session.flashbag.all %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+</div>
 {% block body %}{% endblock %}
 
 <!-- Optional JavaScript -->
