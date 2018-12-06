@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Core\Listing\Service;
 
 use App\Core\Listing\Entity\Listing;
-use App\Infrastructure\Persistence\DoctrineEntityManager;
+use App\Infrastructure\Persistence\PersistenceService;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
@@ -15,9 +15,9 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 class ListingService
 {
     /**
-     * @var DoctrineEntityManager
+     * @var PersistenceService
      */
-    private $doctrineEntityManager;
+    private $persistenceService;
     /**
      * @var FlashBagInterface
      */
@@ -25,16 +25,14 @@ class ListingService
 
     /**
      * ListingService constructor.
-     * @param DoctrineEntityManager $doctrineEntityManager
+     * @param PersistenceService $persistenceService
      * @param FlashBagInterface $flashBag
      */
-    public function __construct
-    (
-        DoctrineEntityManager $doctrineEntityManager,
+    public function __construct(
+        PersistenceService $persistenceService,
         FlashBagInterface $flashBag
-    )
-    {
-        $this->doctrineEntityManager = $doctrineEntityManager;
+    ) {
+        $this->persistenceService = $persistenceService;
         $this->flashBag = $flashBag;
     }
 
@@ -44,11 +42,10 @@ class ListingService
     public function post(Listing $listing): void
     {
         try {
-            $this->doctrineEntityManager->persist($listing);
+            $this->persistenceService->persist($listing);
             $this->flashBag->add('success', 'listing.post.success');
         } catch (\Exception $exception) {
             $this->flashBag->add('error', 'listing.post.failed');
         }
     }
 }
-

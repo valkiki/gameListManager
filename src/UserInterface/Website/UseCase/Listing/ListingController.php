@@ -23,6 +23,10 @@ class ListingController extends AbstractController
      */
     private $handlerFactory;
 
+    /**
+     * ListingController constructor.
+     * @param HandlerFactoryInterface $handlerFactory
+     */
     public function __construct(HandlerFactoryInterface $handlerFactory)
     {
         $this->handlerFactory = $handlerFactory;

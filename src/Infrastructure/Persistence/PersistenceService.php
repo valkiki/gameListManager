@@ -7,10 +7,10 @@ namespace App\Infrastructure\Persistence;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * Class DoctrineEntityManager
+ * Class PersistenceService
  * @package App\Core\Infrastructure\Persistence
  */
-class DoctrineEntityManager
+class PersistenceService
 {
     /**
      * @var EntityManagerInterface
