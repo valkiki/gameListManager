@@ -10,3 +10,7 @@ listing_edit:
   path:
     en: /list/edit/{id}
   controller: App\UserInterface\Website\UseCase\Listing\ListingController::edit
+listing_delete:
+  path:
+    en: /list/delete/{id}
+  controller: App\UserInterface\Website\UseCase\Listing\ListingController::delete

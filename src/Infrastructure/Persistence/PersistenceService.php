@@ -30,9 +30,18 @@ class PersistenceService
      * @param $entity
      * @param bool $flush
      */
-    public function persist($entity): void
+    public function upsert($entity): void
     {
         $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush();
+    }
+
+    /**
+     * @param $entity
+     */
+    public function delete($entity) : void
+    {
+        $this->getEntityManager()->remove($entity);
         $this->getEntityManager()->flush();
     }
 

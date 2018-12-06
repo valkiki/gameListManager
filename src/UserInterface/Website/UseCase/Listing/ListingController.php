@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\UserInterface\Website\UseCase\Listing;
 
 use App\Core\Listing\Entity\Listing;
+use App\Core\Listing\Service\ListingService;
 use App\UserInterface\Website\Form\Handler\PostListingFormHandler;
 use Hostnet\Component\FormHandler\HandlerFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,14 +23,23 @@ class ListingController extends AbstractController
      * @var HandlerFactoryInterface
      */
     private $handlerFactory;
+    /**
+     * @var ListingService
+     */
+    private $listingService;
 
     /**
      * ListingController constructor.
      * @param HandlerFactoryInterface $handlerFactory
+     * @param ListingService $listingService
      */
-    public function __construct(HandlerFactoryInterface $handlerFactory)
+    public function __construct(
+        HandlerFactoryInterface $handlerFactory,
+        ListingService $listingService
+    )
     {
         $this->handlerFactory = $handlerFactory;
+        $this->listingService = $listingService;
     }
 
     /**
@@ -88,5 +98,16 @@ class ListingController extends AbstractController
             '@Listing/form.html.twig',
             ['create_form' => $handler->getForm()->createView()]
         );
+    }
+
+    /**
+     * @param Listing $listing
+     * @return Response
+     */
+    public function delete(Listing $listing): Response
+    {
+        $this->listingService->delete($listing);
+
+        return $this->redirectToRoute('listing_index');
     }
 }
