@@ -37,9 +37,7 @@ class ListingController extends AbstractController
 
         return $this->render(
             '@Listing/index.html.twig',
-            [
-                'listings' => $listings
-            ]
+            ['listings' => $listings]
         );
     }
 
@@ -61,9 +59,7 @@ class ListingController extends AbstractController
 
         return $this->render(
             '@Listing/form.html.twig',
-            [
-                'create_form' => $handler->getForm()->createView()
-            ]
+            ['create_form' => $handler->getForm()->createView()]
         );
     }
 
@@ -86,9 +82,7 @@ class ListingController extends AbstractController
 
         return $this->render(
             '@Listing/form.html.twig',
-            [
-                'create_form' => $handler->getForm()->createView()
-            ]
+            ['create_form' => $handler->getForm()->createView()]
         );
     }
 }

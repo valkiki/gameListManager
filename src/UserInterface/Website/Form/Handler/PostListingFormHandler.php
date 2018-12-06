@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Website\Form\Handler;
 
-use App\Infrastructure\Persistence\DoctrineEntityManager;
+use App\Core\Listing\Service\ListingService;
 use App\Core\Listing\Entity\Listing;
 use App\UserInterface\Website\Form\Type\ListingType;
-use Doctrine\ORM\EntityManagerInterface;
 use Hostnet\Component\FormHandler\HandlerConfigInterface;
 use Hostnet\Component\FormHandler\HandlerTypeInterface;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
  * Class PostListingFormHandler
@@ -19,27 +17,17 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 class PostListingFormHandler implements HandlerTypeInterface
 {
     /**
-     * @var FlashBagInterface
+     * @var ListingService
      */
-    private $flashBag;
-
-    /**
-     * @var DoctrineEntityManager
-     */
-    private $doctrineEntityManager;
+    private $listingService;
 
     /**
      * PostListingFormHandler constructor.
-     * @param DoctrineEntityManager $doctrineEntityManager
-     * @param FlashBagInterface $flashBag
+     * @param ListingService $listingService
      */
-    public function __construct(
-        DoctrineEntityManager $doctrineEntityManager,
-        FlashBagInterface $flashBag
-    )
+    public function __construct(ListingService $listingService)
     {
-        $this->flashBag = $flashBag;
-        $this->doctrineEntityManager = $doctrineEntityManager;
+        $this->listingService = $listingService;
     }
 
     /**
@@ -52,8 +40,7 @@ class PostListingFormHandler implements HandlerTypeInterface
         $config->setType(ListingType::class);
 
         $config->onSuccess(function (Listing $listing) {
-            $this->doctrineEntityManager->persist($listing);
-            $this->flashBag->add('success', 'The listing has been posted.');
+            $this->listingService->post($listing);
         });
     }
 }
