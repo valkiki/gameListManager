@@ -33,6 +33,5 @@ class ListingControllerTest extends WebTestCase
             $this->client->request($method, $route);
             $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         }
-
     }
 }
