@@ -36,8 +36,7 @@ class ListingController extends AbstractController
     public function __construct(
         HandlerFactoryInterface $handlerFactory,
         ListingService $listingService
-    )
-    {
+    ) {
         $this->handlerFactory = $handlerFactory;
         $this->listingService = $listingService;
     }
@@ -52,6 +51,18 @@ class ListingController extends AbstractController
         return $this->render(
             '@Listing/index.html.twig',
             ['listings' => $listings]
+        );
+    }
+
+    /**
+     * @param Listing $listing
+     * @return Response
+     */
+    public function show(Listing $listing) : Response
+    {
+        return $this->render(
+            '@Listing/show.html.twig',
+            ['listing' => $listing]
         );
     }
 

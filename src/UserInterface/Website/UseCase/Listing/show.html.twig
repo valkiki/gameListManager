@@ -1,0 +1,5 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1 class="text-center">{{ listing.name }}</h1>
+    <a href="#">{{ 'item.add'|trans(domain = 'item') }}</a>
+{% endblock %}
