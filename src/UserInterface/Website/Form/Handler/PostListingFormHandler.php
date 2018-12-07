@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Website\Form\Handler;
 
-use App\Core\Listing\Service\ListingService;
-use App\Core\Listing\Entity\Listing;
+use App\Core\Component\Listing\Entity\Listing;
+use App\Core\Component\Listing\Service\ListingService;
 use App\UserInterface\Website\Form\Type\ListingType;
 use Hostnet\Component\FormHandler\HandlerConfigInterface;
 use Hostnet\Component\FormHandler\HandlerTypeInterface;

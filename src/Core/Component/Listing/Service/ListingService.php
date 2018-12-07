@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Listing\Service;
+namespace App\Core\Component\Listing\Service;
 
-use App\Core\Listing\Entity\Listing;
+use App\Core\Component\Listing\Entity\Listing;
 use App\Infrastructure\Persistence\PersistenceService;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 

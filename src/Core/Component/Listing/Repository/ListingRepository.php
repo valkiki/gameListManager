@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Listing\Repository;
+namespace App\Core\Component\Listing\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
