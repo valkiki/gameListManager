@@ -34,8 +34,7 @@ class ListingController extends AbstractController
     public function __construct(
         ListingService $listingService,
         ListingRepository $listingRepository
-    )
-    {
+    ) {
         $this->listingService = $listingService;
         $this->listingRepository = $listingRepository;
     }
