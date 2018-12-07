@@ -16,7 +16,7 @@ doctrine:
         mappings:
             Listing:
                 type: annotation
-                dir: '%kernel.project_dir%/src/Core/Listing/Entity'
+                dir: '%kernel.project_dir%/src/Core/Component/Listing/Entity'
                 is_bundle: false
-                prefix: App\Core\Listing\Entity
+                prefix: App\Core\Component\Listing\Entity
                 alias: Listing

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Website\UseCase\Listing;
 
-use App\Core\Listing\Entity\Listing;
-use App\Core\Listing\Service\ListingService;
+use App\Core\Component\Listing\Entity\Listing;
+use App\Core\Component\Listing\Service\ListingService;
 use App\UserInterface\Website\Form\Handler\PostListingFormHandler;
 use Hostnet\Component\FormHandler\HandlerFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

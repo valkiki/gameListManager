@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Core\Listing\Entity;
+namespace App\Core\Component\Listing\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Core\Listing\Repository\ListingRepository")
+ * @ORM\Entity(repositoryClass="App\Core\Component\Listing\Repository\ListingRepository")
  */
 class Listing
 {
