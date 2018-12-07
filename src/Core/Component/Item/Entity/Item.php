@@ -75,5 +75,4 @@ class Item
     {
         $this->listing = $listing;
     }
-    
 }

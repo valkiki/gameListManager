@@ -24,7 +24,12 @@ services:
     app.form_handler.create_listing:
         class: App\UserInterface\Website\Form\Handler\PostListingFormHandler
         arguments:
-            - "@doctrine.orm.entity_manager"
-            - "@session.flash_bag"
+            - App\Core\Component\Listing\Service\ListingService
+        tags:
+            - {name: form.handler}
+    app.form_handler.create_item:
+        class: App\UserInterface\Website\Form\Handler\PostItemFormHandler
+        arguments:
+            - App\Core\Component\Listing\Service\ItemService
         tags:
             - {name: form.handler}
