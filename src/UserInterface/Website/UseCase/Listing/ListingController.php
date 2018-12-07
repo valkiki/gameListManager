@@ -36,8 +36,7 @@ class ListingController extends AbstractController
     public function __construct(
         HandlerFactoryInterface $handlerFactory,
         ListingService $listingService
-    )
-    {
+    ) {
         $this->handlerFactory = $handlerFactory;
         $this->listingService = $listingService;
     }

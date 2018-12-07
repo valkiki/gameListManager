@@ -31,8 +31,7 @@ class ListingService
     public function __construct(
         PersistenceService $persistenceService,
         FlashBagInterface $flashBag
-    )
-    {
+    ) {
         $this->persistenceService = $persistenceService;
         $this->flashBag = $flashBag;
     }
@@ -46,7 +45,7 @@ class ListingService
             $this->persistenceService->upsert($listing);
             $this->flashBag->add('success', 'listing.post.success');
         } catch (\Exception $exception) {
-            $this->flashBag->add('alert', 'listing.post.failed');
+            $this->flashBag->add('alert', 'listing.post.error');
         }
     }
 
@@ -59,7 +58,7 @@ class ListingService
             $this->persistenceService->delete($listing);
             $this->flashBag->add('success', 'listing.delete.success');
         } catch (\Exception $exception) {
-            $this->flashBag->add('success', 'listing.delete.failure');
+            $this->flashBag->add('success', 'listing.delete.error');
         }
     }
 }
