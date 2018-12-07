@@ -44,6 +44,7 @@ class ItemService
             $this->persistenceService->upsert($item);
             $this->flashBag->add('success', 'item.post.success');
         } catch (\Exception $exception) {
+            dump($exception->getMessage());exit();
             $this->flashBag->add('alert', 'item.post.error');
         }
     }
