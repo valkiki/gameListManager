@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UserInterface\Website\Form\Type;
 
-use App\Core\Listing\Entity\Listing;
+use App\Core\Component\Listing\Entity\Listing;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;

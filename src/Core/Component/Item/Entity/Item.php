@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Core\Component\Item\Entity;
 
+use App\Core\Component\Listing\Entity\Listing;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -61,17 +62,17 @@ class Item
     }
 
     /**
-     * @return mixed
+     * @return Listing
      */
-    public function getListing()
+    public function getListing() : Listing
     {
         return $this->listing;
     }
 
     /**
-     * @param mixed $listing
+     * @param Listing $listing
      */
-    public function setListing($listing): void
+    public function setListing(Listing $listing): void
     {
         $this->listing = $listing;
     }
