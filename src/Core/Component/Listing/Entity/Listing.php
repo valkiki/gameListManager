@@ -83,5 +83,4 @@ class Listing
     {
         $this->items = $items;
     }
-
 }

@@ -1,4 +1,4 @@
 listing.delete.success : The listing was successfully deleted !
 listing.delete.error : An error was occured during the listing deletion.
-lsiting.post.success : The listing was successfully posted !
-listinf.post.error : An error was occured during the post of the listing.
+listing.post.success : The listing was successfully posted !
+listing.post.error : An error was occured during the post of the listing.
