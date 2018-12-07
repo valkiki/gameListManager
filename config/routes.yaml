@@ -18,3 +18,7 @@ listing_delete:
   path:
     en: /list/delete/{id}
   controller: App\UserInterface\Website\UseCase\Listing\ListingController::delete
+item_create:
+  path:
+    en: /list/show/{listing_id}/create_item
+  controller: App\UserInterface\Website\UseCase\Item\ItemController::create

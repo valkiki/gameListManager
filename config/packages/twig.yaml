@@ -4,3 +4,4 @@ twig:
     strict_variables: '%kernel.debug%'
     paths:
         '%kernel.project_dir%/src/UserInterface/Website/UseCase/Listing': 'Listing'
+        '%kernel.project_dir%/src/UserInterface/Website/UseCase/Item': 'Item'
