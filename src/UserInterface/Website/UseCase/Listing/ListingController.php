@@ -55,6 +55,18 @@ class ListingController extends AbstractController
     }
 
     /**
+     * @param Listing $listing
+     * @return Response
+     */
+    public function show(Listing $listing) : Response
+    {
+        return $this->render(
+            '@Listing/show.html.twig',
+            ['listing' => $listing]
+        );
+    }
+
+    /**
      * @param Request $request
      * @return Response
      */

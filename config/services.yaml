@@ -22,7 +22,7 @@ services:
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
 
     app.form_handler.create_listing:
-        class: App\UserInterface\Website\Form\Handler\CreateListingFormHandler
+        class: App\UserInterface\Website\Form\Handler\PostListingFormHandler
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@session.flash_bag"
