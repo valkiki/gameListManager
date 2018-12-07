@@ -1,17 +1,31 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    {% for listing in listings %}
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{ listing.name }}</h5>
-                    <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                    <a href="{{ path('listing_show', {'id' : listing.id}) }}" class="card-link">{{ 'listing.view'|trans(domain = 'listing') }}</a>
-                    <a href="{{ path('listing_edit', {'id' : listing.id}) }}" class="card-link">{{ 'listing.edit'|trans(domain = 'listing') }}</a>
-                    <a href="{{ path('listing_delete', {'id' : listing.id}) }}" class="card-link">{{ 'listing.delete'|trans(domain = 'listing') }}</a>
+    <div class="row">
+        {% for listing in listings %}
+            <div class="col-sm-3 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ listing.name }}</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <a href="{{ path('listing_show', {'id' : listing.id}) }}" class="card-link">
+                                    <i class="fas fa-eye"></i> {{ 'listing.view'|trans(domain = 'listing') }}
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{ path('listing_edit', {'id' : listing.id}) }}" class="card-link">
+                                    <i class="fas fa-edit"></i> {{ 'listing.edit'|trans(domain = 'listing') }}
+                                </a>
+                            </li>
+                            <li class="list-group-item">
+                                <a href="{{ path('listing_delete', {'id' : listing.id}) }}" class="card-link">
+                                    <i class="fas fa-trash"></i> {{ 'listing.delete'|trans(domain = 'listing') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}
