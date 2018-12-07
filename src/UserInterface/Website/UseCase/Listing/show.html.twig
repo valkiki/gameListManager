@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
     <h1 class="text-center">{{ listing.name }}</h1>
+    {% for item in listing.items %}
+        <p>{{ item.name }}</p>
+    {% endfor %}
     <a href="{{ path('item_create', {'listing_id' : listing.id}) }}">{{ 'item.add'|trans(domain = 'item') }}</a>
 {% endblock %}
