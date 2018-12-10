@@ -1,0 +1,29 @@
+doctrine:
+    dbal:
+        driver: 'pdo_sqlite'
+        server_version: '3.22'
+        charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
+
+        url: 'sqlite:///%kernel.project_dir%/var/test.db'
+        types:
+            uuid:  Ramsey\Uuid\Doctrine\UuidType
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            Listing:
+                type: annotation
+                dir: '%kernel.project_dir%/src/Core/Component/Listing/Entity'
+                is_bundle: false
+                prefix: App\Core\Component\Listing\Entity
+                alias: Listing
+            Item:
+                type: annotation
+                dir: '%kernel.project_dir%/src/Core/Component/Item/Entity'
+                is_bundle: false
+                prefix: App\Core\Component\Item\Entity
+                alias: Item
