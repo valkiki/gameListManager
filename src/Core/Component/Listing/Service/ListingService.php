@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Core\Component\Listing\Service;
 
 use App\Core\Component\Listing\Entity\Listing;
-use App\Infrastructure\Persistence\PersistenceService;
+use App\Core\Port\Persistence\PersistenceServiceInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 class ListingService
 {
     /**
-     * @var PersistenceService
+     * @var PersistenceServiceInterface
      */
     private $persistenceService;
     /**
@@ -25,11 +25,11 @@ class ListingService
 
     /**
      * ListingService constructor.
-     * @param PersistenceService $persistenceService
+     * @param PersistenceServiceInterface $persistenceService
      * @param FlashBagInterface $flashBag
      */
     public function __construct(
-        PersistenceService $persistenceService,
+        PersistenceServiceInterface $persistenceService,
         FlashBagInterface $flashBag
     ) {
         $this->persistenceService = $persistenceService;

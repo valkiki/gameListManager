@@ -6,14 +6,13 @@ namespace App\Core\Component\Item\Service;
 
 use App\Core\Component\Item\Entity\Item;
 use App\Core\Component\Listing\Repository\ListingRepository;
-use App\Infrastructure\Persistence\PersistenceService;
-use Symfony\Component\HttpFoundation\Request;
+use App\Core\Port\Persistence\PersistenceServiceInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 class ItemService
 {
     /**
-     * @var PersistenceService
+     * @var PersistenceServiceInterface
      */
     private $persistenceService;
     /**
@@ -23,12 +22,12 @@ class ItemService
 
     /**
      * ItemService constructor.
-     * @param PersistenceService $persistenceService
+     * @param PersistenceServiceInterface $persistenceService
      * @param ListingRepository $listingRepository
      * @param FlashBagInterface $flashBag
      */
     public function __construct(
-        PersistenceService $persistenceService,
+        PersistenceServiceInterface $persistenceService,
         FlashBagInterface $flashBag
     ) {
         $this->persistenceService = $persistenceService;

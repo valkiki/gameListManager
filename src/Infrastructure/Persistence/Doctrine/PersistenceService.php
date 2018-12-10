@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence;
+namespace App\Infrastructure\Persistence\Doctrine;
 
+use App\Core\Port\Persistence\PersistenceServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Class PersistenceService
  * @package App\Core\Infrastructure\Persistence
  */
-class PersistenceService
+class PersistenceService implements PersistenceServiceInterface
 {
     /**
      * @var EntityManagerInterface

@@ -7,7 +7,7 @@ namespace App\tests\UnitTest\Core\Component\Listing\Service;
 use App\Core\Component\Item\Entity\Item;
 use App\Core\Component\Item\Service\ItemService;
 use App\Core\Component\Listing\Entity\Listing;
-use App\Infrastructure\Persistence\PersistenceService;
+use App\Infrastructure\Persistence\Doctrine\PersistenceService;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
