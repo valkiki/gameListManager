@@ -8,7 +8,6 @@ use App\Core\Component\Listing\Entity\Listing;
 use App\Core\Port\Notification\Client\Flashbag\FlashbagNotification;
 use App\Core\Port\Notification\NotificationServiceInterface;
 use App\Core\Port\Persistence\PersistenceServiceInterface;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
 /**
  * Class ListingService

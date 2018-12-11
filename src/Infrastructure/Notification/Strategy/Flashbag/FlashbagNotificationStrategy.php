@@ -53,6 +53,7 @@ class FlashbagNotificationStrategy implements NotificationStrategyInterface
      */
     public function canHandleNotification(NotificationInterface $notification) : bool
     {
+        // Flashbag notifications are always active for the moment
         return true;
     }
 }
