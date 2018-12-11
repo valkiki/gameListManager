@@ -5,34 +5,32 @@ declare(strict_types=1);
 namespace App\Core\Component\Item\Service;
 
 use App\Core\Component\Item\Entity\Item;
-use App\Core\Component\Listing\Repository\ListingRepository;
-use App\Infrastructure\Persistence\PersistenceService;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use App\Core\Port\Notification\Client\Flashbag\FlashbagNotification;
+use App\Core\Port\Notification\NotificationServiceInterface;
+use App\Core\Port\Persistence\PersistenceServiceInterface;
 
 class ItemService
 {
     /**
-     * @var PersistenceService
+     * @var PersistenceServiceInterface
      */
     private $persistenceService;
     /**
-     * @var FlashBagInterface
+     * @var NotificationServiceInterface
      */
-    private $flashBag;
+    private $notificationService;
 
     /**
      * ItemService constructor.
-     * @param PersistenceService $persistenceService
-     * @param ListingRepository $listingRepository
-     * @param FlashBagInterface $flashBag
+     * @param PersistenceServiceInterface $persistenceService
+     * @param NotificationServiceInterface $notificationService
      */
     public function __construct(
-        PersistenceService $persistenceService,
-        FlashBagInterface $flashBag
+        PersistenceServiceInterface $persistenceService,
+        NotificationServiceInterface $notificationService
     ) {
         $this->persistenceService = $persistenceService;
-        $this->flashBag = $flashBag;
+        $this->notificationService = $notificationService;
     }
 
     /**
@@ -42,11 +40,13 @@ class ItemService
     {
         try {
             $this->persistenceService->upsert($item);
-            $this->flashBag->add('success', 'item.post.success');
+            $this->notificationService->notify(
+                new FlashbagNotification('success', 'item.post.success')
+            );
         } catch (\Exception $exception) {
-            dump($exception->getMessage());
-            exit();
-            $this->flashBag->add('alert', 'item.post.error');
+            $this->notificationService->notify(
+                new FlashbagNotification('success', 'item.post.error')
+            );
         }
     }
 }

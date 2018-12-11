@@ -6,12 +6,12 @@ namespace App\tests\UnitTest\Core\Component\Listing\Service;
 
 use App\Core\Component\Listing\Entity\Listing;
 use App\Core\Component\Listing\Service\ListingService;
-use App\Infrastructure\Persistence\PersistenceService;
+use App\Infrastructure\Notification\NotificationService;
+use App\Infrastructure\Persistence\Doctrine\PersistenceService;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
 
 /**
  * Class ListingServiceTest
@@ -40,7 +40,7 @@ class ListingServiceTest extends KernelTestCase
 
         $this->service = new ListingService(
             new PersistenceService($this->entityManager),
-            new FlashBag()
+            $this->getMockBuilder(NotificationService::class)->getMock()
         );
     }
 

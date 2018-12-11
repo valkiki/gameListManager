@@ -20,3 +20,8 @@ services:
     App\:
         resource: '../src/*'
         exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    App\Core\Port\Notification\NotificationServiceInterface:
+        class: App\Infrastructure\Notification\NotificationService
+        arguments:
+            - '@App\Infrastructure\Notification\Strategy\Flashbag\FlashbagNotificationStrategy'

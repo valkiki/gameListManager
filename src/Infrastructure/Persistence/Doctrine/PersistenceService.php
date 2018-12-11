@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Persistence;
+namespace App\Infrastructure\Persistence\Doctrine;
 
+use App\Core\Port\Persistence\PersistenceServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Class PersistenceService
  * @package App\Core\Infrastructure\Persistence
  */
-class PersistenceService
+class PersistenceService implements PersistenceServiceInterface
 {
     /**
      * @var EntityManagerInterface
@@ -30,8 +31,10 @@ class PersistenceService
      * @param $entity
      * @param bool $flush
      */
-    public function upsert($entity, $flush = true): void
-    {
+    public function upsert(
+        $entity,
+        bool $flush = true
+    ): void {
         $this->getEntityManager()->persist($entity);
 
         if ($flush === true) {
@@ -43,8 +46,10 @@ class PersistenceService
      * @param $entity
      * @param bool $flush
      */
-    public function delete($entity, $flush = true): void
-    {
+    public function delete(
+        $entity,
+        bool $flush = true
+    ): void {
         $this->getEntityManager()->remove($entity);
 
         if ($flush === true) {
