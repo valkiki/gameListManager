@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\tests\UnitTest\Core\Component\Listing\Service;
+namespace App\tests\UnitTest\Core\Component\Item\Service;
 
 use App\Core\Component\Item\Entity\Item;
 use App\Core\Component\Item\Service\ItemService;
 use App\Core\Component\Listing\Entity\Listing;
+use App\Core\Port\Notification\NotificationServiceInterface;
+use App\Infrastructure\Notification\NotificationService;
 use App\Infrastructure\Persistence\Doctrine\PersistenceService;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
@@ -41,7 +43,7 @@ class ItemServiceTest extends KernelTestCase
 
         $this->service = new ItemService(
             new PersistenceService($this->entityManager),
-            new FlashBag()
+            $this->getMockBuilder(NotificationService::class)->getMock()
         );
     }
 

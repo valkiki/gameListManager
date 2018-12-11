@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Core\Component\Listing\Service;
 
 use App\Core\Component\Listing\Entity\Listing;
+use App\Core\Port\Notification\Client\Flashbag\FlashbagNotification;
+use App\Core\Port\Notification\NotificationServiceInterface;
 use App\Core\Port\Persistence\PersistenceServiceInterface;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 
@@ -19,21 +21,21 @@ class ListingService
      */
     private $persistenceService;
     /**
-     * @var FlashBagInterface
+     * @var NotificationServiceInterface
      */
-    private $flashBag;
+    private $notificationService;
 
     /**
      * ListingService constructor.
      * @param PersistenceServiceInterface $persistenceService
-     * @param FlashBagInterface $flashBag
+     * @param NotificationServiceInterface $notificationService
      */
     public function __construct(
         PersistenceServiceInterface $persistenceService,
-        FlashBagInterface $flashBag
+        NotificationServiceInterface $notificationService
     ) {
         $this->persistenceService = $persistenceService;
-        $this->flashBag = $flashBag;
+        $this->notificationService = $notificationService;
     }
 
     /**
@@ -43,9 +45,13 @@ class ListingService
     {
         try {
             $this->persistenceService->upsert($listing);
-            $this->flashBag->add('success', 'listing.post.success');
+            $this->notificationService->notify(
+                new FlashbagNotification('success', 'listing.post.success')
+            );
         } catch (\Exception $exception) {
-            $this->flashBag->add('alert', 'listing.post.error');
+            $this->notificationService->notify(
+                new FlashbagNotification('success', 'listing.post.error')
+            );
         }
     }
 
@@ -56,9 +62,13 @@ class ListingService
     {
         try {
             $this->persistenceService->delete($listing);
-            $this->flashBag->add('success', 'listing.delete.success');
+            $this->notificationService->notify(
+                new FlashbagNotification('success', 'listing.delete.success')
+            );
         } catch (\Exception $exception) {
-            $this->flashBag->add('success', 'listing.delete.error');
+            $this->notificationService->notify(
+                new FlashbagNotification('error', 'listing.delete.error')
+            );
         }
     }
 }
