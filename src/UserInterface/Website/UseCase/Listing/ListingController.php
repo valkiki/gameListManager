@@ -6,6 +6,7 @@ namespace App\UserInterface\Website\UseCase\Listing;
 
 use App\Core\Component\Listing\Entity\Listing;
 use App\Core\Component\Listing\Service\ListingService;
+use App\Infrastructure\TemplateEngine\Twig\TemplateEngine;
 use App\UserInterface\Website\Form\Type\ListingType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,15 +22,22 @@ class ListingController extends AbstractController
      * @var ListingService
      */
     private $listingService;
+    /**
+     * @var TemplateEngine
+     */
+    private $templateEngine;
 
     /**
      * ListingController constructor.
      * @param ListingService $listingService
+     * @param TemplateEngine $templateEngine
      */
     public function __construct(
-        ListingService $listingService
+        ListingService $listingService,
+        TemplateEngine $templateEngine
     ) {
         $this->listingService = $listingService;
+        $this->templateEngine = $templateEngine;
     }
 
     /**
@@ -37,7 +45,7 @@ class ListingController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render(
+        return $this->templateEngine->renderResponse(
             '@Listing/index.html.twig',
             ['listings' => $this->listingService->getAll()]
         );
@@ -49,7 +57,7 @@ class ListingController extends AbstractController
      */
     public function show(Listing $listing): Response
     {
-        return $this->render(
+        return $this->templateEngine->renderResponse(
             '@Listing/show.html.twig',
             ['listing' => $this->listingService->get($listing->getId())]
         );
@@ -71,7 +79,7 @@ class ListingController extends AbstractController
             return $this->redirectToRoute('listing_index');
         }
 
-        return $this->render(
+        return $this->templateEngine->renderResponse(
             '@Listing/form.html.twig',
             ['create_form' => $form->createView()]
         );
@@ -93,7 +101,7 @@ class ListingController extends AbstractController
             return $this->redirectToRoute('listing_index');
         }
 
-        return $this->render(
+        return $this->templateEngine->renderResponse(
             '@Listing/form.html.twig',
             ['create_form' => $form->createView()]
         );
