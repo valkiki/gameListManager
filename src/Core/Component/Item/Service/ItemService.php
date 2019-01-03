@@ -5,31 +5,35 @@ declare(strict_types=1);
 namespace App\Core\Component\Item\Service;
 
 use App\Core\Component\Item\Entity\Item;
+use App\Core\Component\Item\Repository\ItemRepositoryInterface;
 use App\Core\Port\Notification\Client\Flashbag\FlashbagNotification;
 use App\Core\Port\Notification\NotificationServiceInterface;
-use App\Core\Port\Persistence\PersistenceServiceInterface;
 
+/**
+ * Class ItemService
+ * @package App\Core\Component\Item\Service
+ */
 class ItemService
 {
-    /**
-     * @var PersistenceServiceInterface
-     */
-    private $persistenceService;
     /**
      * @var NotificationServiceInterface
      */
     private $notificationService;
+    /**
+     * @var ItemRepositoryInterface
+     */
+    private $itemRepository;
 
     /**
      * ItemService constructor.
-     * @param PersistenceServiceInterface $persistenceService
+     * @param ItemRepositoryInterface $itemRepository
      * @param NotificationServiceInterface $notificationService
      */
     public function __construct(
-        PersistenceServiceInterface $persistenceService,
+        ItemRepositoryInterface $itemRepository,
         NotificationServiceInterface $notificationService
     ) {
-        $this->persistenceService = $persistenceService;
+        $this->itemRepository = $itemRepository;
         $this->notificationService = $notificationService;
     }
 
@@ -39,7 +43,7 @@ class ItemService
     public function add(Item $item): void
     {
         try {
-            $this->persistenceService->upsert($item);
+            $this->itemRepository->add($item);
             $this->notificationService->notify(
                 new FlashbagNotification('success', 'item.post.success')
             );

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\UserInterface\Website\UseCase\Listing;
 
 use App\Core\Component\Listing\Entity\Listing;
-use App\Core\Component\Listing\Repository\ListingRepository;
 use App\Core\Component\Listing\Service\ListingService;
 use App\UserInterface\Website\Form\Type\ListingType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,21 +21,15 @@ class ListingController extends AbstractController
      * @var ListingService
      */
     private $listingService;
-    /**
-     * @var ListingRepository
-     */
-    private $listingRepository;
 
     /**
      * ListingController constructor.
      * @param ListingService $listingService
      */
     public function __construct(
-        ListingService $listingService,
-        ListingRepository $listingRepository
+        ListingService $listingService
     ) {
         $this->listingService = $listingService;
-        $this->listingRepository = $listingRepository;
     }
 
     /**
@@ -44,11 +37,9 @@ class ListingController extends AbstractController
      */
     public function index(): Response
     {
-        $listings = $this->listingRepository->findAll();
-
         return $this->render(
             '@Listing/index.html.twig',
-            ['listings' => $listings]
+            ['listings' => $this->listingService->getAll()]
         );
     }
 
@@ -60,7 +51,7 @@ class ListingController extends AbstractController
     {
         return $this->render(
             '@Listing/show.html.twig',
-            ['listing' => $listing]
+            ['listing' => $this->listingService->get($listing->getId())]
         );
     }
 

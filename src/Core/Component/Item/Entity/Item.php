@@ -8,7 +8,7 @@ use App\Core\Component\Listing\Entity\Listing;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Core\Component\Item\Repository\ItemRepository")
+ * @ORM\Entity
  */
 class Item
 {

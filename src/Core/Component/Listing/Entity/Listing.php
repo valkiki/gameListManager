@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Core\Component\Listing\Repository\ListingRepository")
+ * @ORM\Entity
  */
 class Listing
 {

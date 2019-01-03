@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\tests\UnitTest\Core\Component\Listing\Service;
 
 use App\Core\Component\Listing\Entity\Listing;
+use App\Core\Component\Listing\Repository\ListingRepository;
 use App\Core\Component\Listing\Service\ListingService;
 use App\Infrastructure\Notification\NotificationService;
 use App\Infrastructure\Persistence\Doctrine\PersistenceService;
@@ -39,7 +40,7 @@ class ListingServiceTest extends KernelTestCase
         ))->execute($loader->getFixtures());
 
         $this->service = new ListingService(
-            new PersistenceService($this->entityManager),
+            new ListingRepository($this->entityManager, new PersistenceService($this->entityManager)),
             $this->getMockBuilder(NotificationService::class)->getMock()
         );
     }

@@ -6,7 +6,7 @@ namespace App\UserInterface\Website\UseCase\Item;
 
 use App\Core\Component\Item\Entity\Item;
 use App\Core\Component\Item\Service\ItemService;
-use App\Core\Component\Listing\Repository\ListingRepository;
+use App\Core\Component\Listing\Service\ListingService;
 use App\UserInterface\Website\Form\Type\ItemType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,23 +22,22 @@ class ItemController extends AbstractController
      * @var ItemService
      */
     private $itemService;
-
     /**
-     * @var ListingRepository
+     * @var ListingService
      */
-    private $listingRepository;
+    private $listingService;
 
     /**
      * ItemController constructor.
      * @param ItemService $itemService
-     * @param ListingRepository $listingRepository
+     * @param ListingService $listingService
      */
     public function __construct(
         ItemService $itemService,
-        ListingRepository $listingRepository
+        ListingService $listingService
     ) {
         $this->itemService = $itemService;
-        $this->listingRepository = $listingRepository;
+        $this->listingService = $listingService;
     }
 
     /**
@@ -48,9 +47,10 @@ class ItemController extends AbstractController
     public function create(Request $request): Response
     {
         $item = new Item();
-        $listing = $this->listingRepository->find($request->get('listing_id'));
 
-        $item->setListing($listing);
+        $item->setListing(
+            $this->listingService->get((int)$request->get('listing_id'))
+        );
 
         $form = $this->createForm(ItemType::class, $item);
 

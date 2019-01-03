@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\tests\UnitTest\Core\Component\Item\Service;
 
 use App\Core\Component\Item\Entity\Item;
+use App\Core\Component\Item\Repository\ItemRepository;
 use App\Core\Component\Item\Service\ItemService;
 use App\Core\Component\Listing\Entity\Listing;
 use App\Core\Port\Notification\NotificationServiceInterface;
@@ -42,7 +43,7 @@ class ItemServiceTest extends KernelTestCase
         ))->execute($loader->getFixtures());
 
         $this->service = new ItemService(
-            new PersistenceService($this->entityManager),
+            new ItemRepository($this->entityManager, new PersistenceService($this->entityManager)),
             $this->getMockBuilder(NotificationService::class)->getMock()
         );
     }

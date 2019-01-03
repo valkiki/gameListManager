@@ -5,21 +5,59 @@ declare(strict_types=1);
 namespace App\Core\Component\Item\Repository;
 
 use App\Core\Component\Item\Entity\Item;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use App\Core\Port\Persistence\PersistenceServiceInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * Class ItemRepository
  * @package App\Core\Component\Item\Repository
  */
-class ItemRepository extends ServiceEntityRepository
+class ItemRepository implements ItemRepositoryInterface
 {
+    private $entityRepository;
     /**
-     * ItemRepository constructor.
-     * @param ManagerRegistry $registry
+     * @var PersistenceServiceInterface
      */
-    public function __construct(ManagerRegistry $registry)
+    private $persistenceService;
+
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        PersistenceServiceInterface $persistenceService
+    ) {
+        $this->entityRepository = $entityManager->getRepository(Item::class);
+        $this->persistenceService = $persistenceService;
+    }
+
+    /**
+     * @return array
+     */
+    public function findAll(): array
     {
-        parent::__construct($registry, Item::class);
+        return $this->entityRepository->findAll();
+    }
+
+    /**
+     * @param int $id
+     * @return Item
+     */
+    public function find(int $id): Item
+    {
+        return $this->entityRepository->find($id);
+    }
+
+    /**
+     * @param Item $item
+     */
+    public function add(Item $item): void
+    {
+        $this->persistenceService->upsert($item);
+    }
+
+    /**
+     * @param Item $item
+     */
+    public function delete(Item $item): void
+    {
+        $this->persistenceService->delete($item);
     }
 }
