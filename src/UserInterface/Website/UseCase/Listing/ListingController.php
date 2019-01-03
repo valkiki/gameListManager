@@ -6,8 +6,11 @@ namespace App\UserInterface\Website\UseCase\Listing;
 
 use App\Core\Component\Listing\Entity\Listing;
 use App\Core\Component\Listing\Service\ListingService;
+use App\Core\Port\Response\ResponseFactoryInterface;
+use App\Core\Port\TemplateEngine\TemplateEngineInterface;
 use App\Infrastructure\TemplateEngine\Twig\TemplateEngine;
 use App\UserInterface\Website\Form\Type\ListingType;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,24 +29,31 @@ class ListingController extends AbstractController
      * @var TemplateEngine
      */
     private $templateEngine;
+    /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
 
     /**
      * ListingController constructor.
      * @param ListingService $listingService
-     * @param TemplateEngine $templateEngine
+     * @param TemplateEngineInterface $templateEngine
+     * @param ResponseFactoryInterface $responseFactory
      */
     public function __construct(
         ListingService $listingService,
-        TemplateEngine $templateEngine
+        TemplateEngineInterface $templateEngine,
+        ResponseFactoryInterface $responseFactory
     ) {
         $this->listingService = $listingService;
         $this->templateEngine = $templateEngine;
+        $this->responseFactory = $responseFactory;
     }
 
     /**
      * @return Response
      */
-    public function index(): Response
+    public function index(): ResponseInterface
     {
         return $this->templateEngine->renderResponse(
             '@Listing/index.html.twig',
@@ -55,7 +65,7 @@ class ListingController extends AbstractController
      * @param Listing $listing
      * @return Response
      */
-    public function show(Listing $listing): Response
+    public function show(Listing $listing): ResponseInterface
     {
         return $this->templateEngine->renderResponse(
             '@Listing/show.html.twig',
@@ -67,7 +77,7 @@ class ListingController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function create(Request $request): Response
+    public function create(Request $request): ResponseInterface
     {
         $listing = new Listing();
         $form = $this->createForm(ListingType::class, $listing);
@@ -76,7 +86,7 @@ class ListingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->listingService->post($listing);
-            return $this->redirectToRoute('listing_index');
+            return $this->responseFactory->redirectToRoute('listing_index');
         }
 
         return $this->templateEngine->renderResponse(
@@ -90,7 +100,7 @@ class ListingController extends AbstractController
      * @param Listing $listing
      * @return Response
      */
-    public function edit(Request $request, Listing $listing): Response
+    public function edit(Request $request, Listing $listing): ResponseInterface
     {
         $form = $this->createForm(ListingType::class, $listing);
 
@@ -98,7 +108,7 @@ class ListingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->listingService->post($listing);
-            return $this->redirectToRoute('listing_index');
+            return $this->responseFactory->redirectToRoute('listing_index');
         }
 
         return $this->templateEngine->renderResponse(
@@ -111,10 +121,10 @@ class ListingController extends AbstractController
      * @param Listing $listing
      * @return Response
      */
-    public function delete(Listing $listing): Response
+    public function delete(Listing $listing): ResponseInterface
     {
         $this->listingService->delete($listing);
 
-        return $this->redirectToRoute('listing_index');
+        return $this->responseFactory->redirectToRoute('listing_index');
     }
 }

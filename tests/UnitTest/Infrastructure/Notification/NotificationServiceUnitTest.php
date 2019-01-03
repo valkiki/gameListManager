@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\App\Test\TestCase\Infrastructure\Notification;
+namespace App\tests\UnitTest\Infrastructure\Notification;
 
 use App\Core\Port\Notification\NotificationInterface;
 use App\Infrastructure\Notification\NotificationService;

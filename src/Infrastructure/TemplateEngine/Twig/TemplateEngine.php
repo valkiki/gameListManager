@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace App\Infrastructure\TemplateEngine\Twig;
 
 use App\Core\Port\TemplateEngine\TemplateEngineInterface;
+use Psr\Http\Message\ResponseInterface;
+use Symfony\Bridge\PsrHttpMessage\HttpFoundationFactoryInterface;
+use Symfony\Bridge\PsrHttpMessage\HttpMessageFactoryInterface;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,14 +21,38 @@ final class TemplateEngine implements TemplateEngineInterface
      * @var EngineInterface
      */
     private $engine;
+    /**
+     * @var HttpMessageFactoryInterface
+     */
+    private $responseFactory;
+    /**
+     * @var HttpFoundationFactoryInterface
+     */
+    private $httpFoundationFactory;
 
     /**
      * TemplateEngine constructor.
      * @param EngineInterface $engine
+     * @param HttpMessageFactoryInterface $responseFactory
+     * @param HttpFoundationFactoryInterface $httpFoundationFactory
      */
-    public function __construct(EngineInterface $engine)
-    {
+    public function __construct(
+        EngineInterface $engine,
+        HttpMessageFactoryInterface $responseFactory,
+        HttpFoundationFactoryInterface $httpFoundationFactory
+    ) {
         $this->engine = $engine;
+        $this->responseFactory = $responseFactory;
+        $this->httpFoundationFactory = $httpFoundationFactory;
+    }
+
+    /**
+     * @param string $template
+     * @return bool
+     */
+    public function exists(string $template): bool
+    {
+        return $this->engine->exists($template);
     }
 
     /**
@@ -44,13 +71,27 @@ final class TemplateEngine implements TemplateEngineInterface
     /**
      * @param string $template
      * @param array $parameters
-     * @return Response
+     * @return ResponseInterface
      */
-    public function renderResponse(string $template, array $parameters): Response
-    {
-        return $this->engine->renderResponse(
-            $template,
-            $parameters
+    public function renderResponse(
+        string $template,
+        array $parameters = [],
+        ResponseInterface $response = null
+    ): ResponseInterface {
+        if ($response) {
+            $response = $this->httpFoundationFactory->createResponse($response);
+        }
+
+        $response = $this->responseFactory->createResponse(
+            $this->engine->renderResponse(
+                $template,
+                $parameters,
+                $response
+            )
         );
+
+        $response->getBody()->rewind();
+
+        return $response;
     }
 }
