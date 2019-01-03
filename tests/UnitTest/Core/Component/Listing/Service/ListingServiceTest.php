@@ -31,6 +31,8 @@ class ListingServiceTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
+        $this->entityManager->getConnection()->beginTransaction();
+
         $loader = new Loader();
         $loader->loadFromDirectory('/opt/gameListManager/tests/DataFixtures');
 
@@ -79,5 +81,10 @@ class ListingServiceTest extends KernelTestCase
             ->findOneBy(['name' => 'My first listing']);
 
         $this->assertNull($listing);
+    }
+
+    protected function tearDown()
+    {
+        $this->entityManager->getConnection()->rollback();
     }
 }

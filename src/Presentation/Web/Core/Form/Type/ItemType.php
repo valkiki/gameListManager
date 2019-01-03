@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UserInterface\Website\Form\Type;
+namespace App\Presentation\Web\Core\Form\Type;
 
 use App\Core\Component\Item\Entity\Item;
 use Symfony\Component\Form\AbstractType;
@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class ItemType
- * @package App\UserInterface\Website\Form\Type
+ * @package App\Presentation\Web\Form\Type
  */
 class ItemType extends AbstractType
 {

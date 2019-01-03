@@ -34,6 +34,8 @@ class ItemServiceTest extends KernelTestCase
             ->get('doctrine')
             ->getManager();
 
+        $this->entityManager->getConnection()->beginTransaction();
+
         $loader = new Loader();
         $loader->loadFromDirectory('/opt/gameListManager/tests/DataFixtures');
 
@@ -68,5 +70,10 @@ class ItemServiceTest extends KernelTestCase
             ->findBy(['name' => 'My awesome item']);
 
         $this->assertCount(1, $items);
+    }
+
+    protected function tearDown()
+    {
+        $this->entityManager->getConnection()->rollback();
     }
 }

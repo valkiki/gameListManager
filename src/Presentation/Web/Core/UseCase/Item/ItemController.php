@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UserInterface\Website\UseCase\Item;
+namespace App\Presentation\Web\Core\UseCase\Item;
 
 use App\Core\Component\Item\Entity\Item;
 use App\Core\Component\Item\Service\ItemService;
@@ -10,7 +10,7 @@ use App\Core\Component\Listing\Service\ListingService;
 use App\Core\Port\Response\ResponseFactoryInterface;
 use App\Core\Port\TemplateEngine\TemplateEngineInterface;
 use App\Infrastructure\TemplateEngine\Twig\TemplateEngine;
-use App\UserInterface\Website\Form\Type\ItemType;
+use App\Presentation\Web\Core\Form\Type\ItemType;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ItemController
- * @package App\UserInterface\Website\UseCase\Item
+ * @package App\Presentation\Web\UseCase\Item
  */
 class ItemController extends AbstractController
 {

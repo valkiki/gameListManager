@@ -29,7 +29,7 @@ final class AllTemplatesCalledExistIntegrationTest extends WebTestCase
 REGEXP;
 
     private const PATHS_TO_SEARCH = [
-        'src/UserInterface/Website',
+        'src/Presentation/Web',
     ];
 
     private const FILE_NAME_PATTERN_TO_SEARCH = [

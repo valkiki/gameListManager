@@ -1,7 +1,7 @@
 twig:
-    default_path: '%kernel.project_dir%/src/UserInterface/Website'
+    default_path: '%kernel.project_dir%/src/Presentation/Web/Core'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     paths:
-        '%kernel.project_dir%/src/UserInterface/Website/UseCase/Listing': 'Listing'
-        '%kernel.project_dir%/src/UserInterface/Website/UseCase/Item': 'Item'
+        '%kernel.project_dir%/src/Presentation/Web/Core/UseCase/Listing': 'Listing'
+        '%kernel.project_dir%/src/Presentation/Web/Core/UseCase/Item': 'Item'

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UserInterface\Infrastructure\ZendDiactoros;
+namespace App\Presentation\Web\Infrastructure\ZendDiactoros;
 
 use App\Core\Port\Response\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class ResponseFactory
- * @package App\UserInterface\Infrastructure\ZendDiactoros
+ * @package App\Presentation\Web\Infrastructure\ZendDiactoros
  */
 final class ResponseFactory implements ResponseFactoryInterface
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\UserInterface\Website\UseCase\Listing;
+namespace App\Presentation\Web\Core\UseCase\Listing;
 
 use App\Core\Component\Listing\Entity\Listing;
 use App\Core\Component\Listing\Service\ListingService;
 use App\Core\Port\Response\ResponseFactoryInterface;
 use App\Core\Port\TemplateEngine\TemplateEngineInterface;
 use App\Infrastructure\TemplateEngine\Twig\TemplateEngine;
-use App\UserInterface\Website\Form\Type\ListingType;
+use App\Presentation\Web\Core\Form\Type\ListingType;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ListingController
- * @package App\UserInterface\Listing
+ * @package App\Presentation\Listing
  */
 class ListingController extends AbstractController
 {
