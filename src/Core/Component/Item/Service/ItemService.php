@@ -32,7 +32,8 @@ class ItemService
     public function __construct(
         ItemRepositoryInterface $itemRepository,
         NotificationServiceInterface $notificationService
-    ) {
+    )
+    {
         $this->itemRepository = $itemRepository;
         $this->notificationService = $notificationService;
     }
@@ -45,11 +46,11 @@ class ItemService
         try {
             $this->itemRepository->add($item);
             $this->notificationService->notify(
-                new FlashbagNotification('success', 'item.post.success')
+                new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'item.post.success')
             );
         } catch (\Exception $exception) {
             $this->notificationService->notify(
-                new FlashbagNotification('success', 'item.post.error')
+                new FlashbagNotification(FlashbagNotification::ALERT_ERROR, 'item.post.error')
             );
         }
     }
