@@ -14,7 +14,7 @@
         <env name="APP_DEBUG" value="1" />
         <env name="APP_SECRET" value="s$cretf0rt3st" />
         <env name="SHELL_VERBOSITY" value="-1" />
-        <env name="DATABASE_URL" value="sqlite:///%kernel.project_dir%/var/test.db" />
+        <env name="DATABASE_URL" value="sqlite:///%kernel.project_dir%/var/test.sqlite" />
         <!-- define your env variables for the test env here -->
     </php>
 
@@ -32,5 +32,12 @@
 
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+        <listener class="\Hgraca\DoctrineTestDbRegenerationBundle\EventSubscriber\DbRegenerationPHPUnitEventSubscriber">
+            <arguments>
+                <integer>0</integer> <!-- $shouldRemoveDbAfterEveryTest -->
+                <integer>1</integer> <!-- $shouldRegenerateOnEveryTest -->
+                <integer>0</integer> <!-- $shouldReuseExistingDbBkp -->
+            </arguments>
+        </listener>
     </listeners>
 </phpunit>

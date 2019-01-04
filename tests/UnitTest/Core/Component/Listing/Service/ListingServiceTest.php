@@ -9,37 +9,24 @@ use App\Core\Component\Listing\Repository\ListingRepository;
 use App\Core\Component\Listing\Service\ListingService;
 use App\Infrastructure\Notification\NotificationService;
 use App\Infrastructure\Persistence\Doctrine\PersistenceService;
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
-use Doctrine\Common\DataFixtures\Loader;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use App\tests\Framework\AbstractIntegrationTest;
 
 /**
  * Class ListingServiceTest
  * @package App\tests\UnitTest\Core\Component\Listing\Service
  */
-class ListingServiceTest extends KernelTestCase
+class ListingServiceTest extends AbstractIntegrationTest
 {
     private $service;
     private $entityManager;
 
     public function setUp()
     {
-        $kernel = self::bootKernel();
+        parent::setUp();
 
-        $this->entityManager = $kernel->getContainer()
+        $this->entityManager = $this->getContainer()
             ->get('doctrine')
             ->getManager();
-
-        $this->entityManager->getConnection()->beginTransaction();
-
-        $loader = new Loader();
-        $loader->loadFromDirectory('/opt/gameListManager/tests/DataFixtures');
-
-        (new ORMExecutor(
-            $this->entityManager,
-            new ORMPurger()
-        ))->execute($loader->getFixtures());
 
         $this->service = new ListingService(
             new ListingRepository($this->entityManager, new PersistenceService($this->entityManager)),
@@ -81,10 +68,5 @@ class ListingServiceTest extends KernelTestCase
             ->findOneBy(['name' => 'My first listing']);
 
         $this->assertNull($listing);
-    }
-
-    protected function tearDown()
-    {
-        $this->entityManager->getConnection()->rollback();
     }
 }

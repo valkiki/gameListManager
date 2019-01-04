@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ListingControllerTest
- * @package App\tests\Integration\Listing
+ * @package App\tests\Integration\Item
  */
-class ListingControllerTest extends AbstractFunctionalTest
+class ItemControllerTest extends AbstractFunctionalTest
 {
     /**
      * @var Listing $listing
@@ -42,9 +42,6 @@ class ListingControllerTest extends AbstractFunctionalTest
 
     public function getPublicUrls()
     {
-        yield ['/list/all', Response::HTTP_OK];
-        yield ['/list/create', Response::HTTP_OK];
-        yield ['/list/show/%s', Response::HTTP_OK];
-        yield ['/list/delete/%s', Response::HTTP_FOUND];
+        yield ['/list/show/%s/create_item', Response::HTTP_OK];
     }
 }

@@ -1,0 +1,7 @@
+hgraca_doctrine_test_db_regeneration:
+  doctrine_service_id: 'doctrine'
+  fixtures_loader_service_id: 'doctrine.fixtures.loader'
+  test_db_bkp_path: '%kernel.project_dir%/var/test.db'
+  # The list of extra services to add to the container,
+  # in case you want to reuse this already built container.
+  extra_service_list: []

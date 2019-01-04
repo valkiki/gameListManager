@@ -1,24 +1,24 @@
 listing_index:
   path:
     en: /list/all
-  controller: App\Presentation\Website\Core\UseCase\Listing\ListingController::index
+  controller: App\Presentation\Web\Core\UseCase\Listing\ListingController::index
 listing_show:
   path:
     en: /list/show/{id}
-  controller: App\Presentation\Website\Core\UseCase\Listing\ListingController::show
+  controller: App\Presentation\Web\Core\UseCase\Listing\ListingController::show
 listing_create:
   path:
     en: /list/create
-  controller: App\Presentation\Website\Core\UseCase\Listing\ListingController::create
+  controller: App\Presentation\Web\Core\UseCase\Listing\ListingController::create
 listing_edit:
   path:
     en: /list/edit/{id}
-  controller: App\Presentation\Website\Core\UseCase\Listing\ListingController::edit
+  controller: App\Presentation\Web\Core\UseCase\Listing\ListingController::edit
 listing_delete:
   path:
     en: /list/delete/{id}
-  controller: App\Presentation\Website\Core\UseCase\Listing\ListingController::delete
+  controller: App\Presentation\Web\Core\UseCase\Listing\ListingController::delete
 item_create:
   path:
     en: /list/show/{listing_id}/create_item
-  controller: App\Presentation\Website\Core\UseCase\Item\ItemController::create
+  controller: App\Presentation\Web\Core\UseCase\Item\ItemController::create

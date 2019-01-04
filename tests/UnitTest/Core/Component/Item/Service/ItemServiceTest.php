@@ -8,41 +8,34 @@ use App\Core\Component\Item\Entity\Item;
 use App\Core\Component\Item\Repository\ItemRepository;
 use App\Core\Component\Item\Service\ItemService;
 use App\Core\Component\Listing\Entity\Listing;
-use App\Core\Port\Notification\NotificationServiceInterface;
 use App\Infrastructure\Notification\NotificationService;
 use App\Infrastructure\Persistence\Doctrine\PersistenceService;
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
-use Doctrine\Common\DataFixtures\Loader;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use App\tests\Framework\AbstractIntegrationTest;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Class ListingServiceTest
  * @package App\tests\UnitTest\Core\Component\Listing\Service
  */
-class ItemServiceTest extends KernelTestCase
+class ItemServiceTest extends AbstractIntegrationTest
 {
+    /**
+     * @var ItemService $service
+     */
     private $service;
+
+    /**
+     * @var EntityManager $entityManager
+     */
     private $entityManager;
 
     public function setUp()
     {
-        $kernel = self::bootKernel();
+        parent::setUp();
 
-        $this->entityManager = $kernel->getContainer()
+        $this->entityManager = $this->getContainer()
             ->get('doctrine')
             ->getManager();
-
-        $this->entityManager->getConnection()->beginTransaction();
-
-        $loader = new Loader();
-        $loader->loadFromDirectory('/opt/gameListManager/tests/DataFixtures');
-
-        (new ORMExecutor(
-            $this->entityManager,
-            new ORMPurger()
-        ))->execute($loader->getFixtures());
 
         $this->service = new ItemService(
             new ItemRepository($this->entityManager, new PersistenceService($this->entityManager)),
@@ -70,10 +63,5 @@ class ItemServiceTest extends KernelTestCase
             ->findBy(['name' => 'My awesome item']);
 
         $this->assertCount(1, $items);
-    }
-
-    protected function tearDown()
-    {
-        $this->entityManager->getConnection()->rollback();
     }
 }
