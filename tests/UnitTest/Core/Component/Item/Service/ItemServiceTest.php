@@ -63,4 +63,22 @@ class ItemServiceTest extends AbstractIntegrationTest
 
         $this->assertCount(1, $items);
     }
+
+    /**
+     * @test
+     */
+    public function deleteSuccessfully()
+    {
+        $item = $this->entityManager
+            ->getRepository(Item::class)
+            ->findOneBy(['name' => 'My first item']);
+
+        $this->service->delete($item);
+
+        $item = $this->entityManager
+            ->getRepository(Item::class)
+            ->findOneBy(['name' => 'My first item']);
+
+        $this->assertNull($item);
+    }
 }

@@ -81,4 +81,14 @@ class ItemController extends AbstractController
             ['create_form' => $form->createView()]
         );
     }
+
+    public function delete(Item $item): ResponseInterface
+    {
+        $this->itemService->delete($item);
+
+        return $this->responseFactory->redirectToRoute(
+            'listing_show',
+            ['id' => $item->getListing()->getId()]
+        );
+    }
 }

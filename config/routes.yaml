@@ -22,3 +22,7 @@ item_create:
   path:
     en: /list/show/{listing_id}/create_item
   controller: App\Presentation\Web\Core\UseCase\Item\ItemController::create
+item_delete:
+  path:
+    en: /item/delete/{id}
+  controller: App\Presentation\Web\Core\UseCase\Item\ItemController::delete
