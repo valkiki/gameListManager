@@ -35,7 +35,12 @@
         <div class="col-sm-12">
             {% for label, messages in app.session.flashbag.all %}
                 {% for message in messages %}
-                    <div class="alert alert-{{ label }}">{{ message|trans(domain = 'flashbag') }}</div>
+                    <div class="alert alert-{{ label }}">
+                        {{ message|trans(domain = 'flashbag') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 {% endfor %}
             {% endfor %}
         </div>
