@@ -65,17 +65,14 @@ class ItemController extends AbstractController
     public function create(Request $request): ResponseInterface
     {
         $item = new Item();
-
-        $item->setListing(
-            $this->listingService->get((int)$request->get('listing_id'))
-        );
+        $listing = $this->listingService->get((int)$request->get('listing_id'));
 
         $form = $this->createForm(ItemType::class, $item);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->itemService->add($item);
+            $this->itemService->add($listing, $item);
             return $this->responseFactory->redirectToRoute('listing_index');
         }
 
