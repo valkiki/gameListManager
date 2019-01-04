@@ -55,11 +55,11 @@ class ListingService
         try {
             $this->listingRepository->add($listing);
             $this->notificationService->notify(
-                new FlashbagNotification('success', 'listing.post.success')
+                new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'listing.post.success')
             );
         } catch (\Exception $exception) {
             $this->notificationService->notify(
-                new FlashbagNotification('success', 'listing.post.error')
+                new FlashbagNotification(FlashbagNotification::ALERT_ERROR, 'listing.post.error')
             );
         }
     }
@@ -72,11 +72,11 @@ class ListingService
         try {
             $this->listingRepository->delete($listing);
             $this->notificationService->notify(
-                new FlashbagNotification('success', 'listing.delete.success')
+                new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'listing.delete.success')
             );
         } catch (\Exception $exception) {
             $this->notificationService->notify(
-                new FlashbagNotification('error', 'listing.delete.error')
+                new FlashbagNotification(FlashbagNotification::ALERT_ERROR, 'listing.delete.error')
             );
         }
     }
