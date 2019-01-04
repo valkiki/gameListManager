@@ -57,4 +57,16 @@ class ItemService
             );
         }
     }
+
+    /**
+     * @param Item $item
+     */
+    public function delete(Item $item) : void
+    {
+        $this->itemRepository->delete($item);
+
+        $this->notificationService->notify(
+            new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'item.delete.success')
+        );
+    }
 }
