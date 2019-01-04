@@ -32,8 +32,7 @@ class ItemService
     public function __construct(
         ItemRepositoryInterface $itemRepository,
         NotificationServiceInterface $notificationService
-    )
-    {
+    ) {
         $this->itemRepository = $itemRepository;
         $this->notificationService = $notificationService;
     }
