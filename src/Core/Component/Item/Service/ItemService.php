@@ -47,7 +47,7 @@ class ItemService
         try {
             $item->setListing($listing);
 
-            $this->itemRepository->add($item);
+            $this->itemRepository->create($item);
             $this->notificationService->notify(
                 new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'item.post.success')
             );

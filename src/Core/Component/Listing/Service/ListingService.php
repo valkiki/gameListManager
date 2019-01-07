@@ -37,7 +37,10 @@ class ListingService
         $this->notificationService = $notificationService;
     }
 
-    public function getAll()
+    /**
+     * @return array
+     */
+    public function getAll() : array
     {
         return $this->listingRepository->findAll();
     }
@@ -46,7 +49,7 @@ class ListingService
      * @param int $id
      * @return Listing
      */
-    public function get(int $id)
+    public function get(int $id) : Listing
     {
         return $this->listingRepository->find($id);
     }

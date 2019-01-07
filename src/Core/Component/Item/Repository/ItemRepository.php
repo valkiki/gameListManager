@@ -48,7 +48,7 @@ class ItemRepository implements ItemRepositoryInterface
     /**
      * @param Item $item
      */
-    public function add(Item $item): void
+    public function create(Item $item): void
     {
         $this->persistenceService->upsert($item);
     }
