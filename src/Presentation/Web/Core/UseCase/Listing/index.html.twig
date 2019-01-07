@@ -1,28 +1,48 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
+{% endblock %}
 {% block body %}
     <div class="row">
         {% for listing in listings %}
-            <div class="col-sm-3 mb-3">
+            <div class="col-sm-12 mb-3">
+
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-header">
                         <h5 class="card-title">{{ listing.name }}</h5>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <a href="{{ path('listing_show', {'id' : listing.id}) }}" class="card-link">
-                                    <i class="fas fa-eye"></i> {{ 'listing.view'|trans(domain = 'listing') }}
-                                </a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="{{ path('listing_edit', {'id' : listing.id}) }}" class="card-link">
-                                    <i class="fas fa-edit"></i> {{ 'listing.edit'|trans(domain = 'listing') }}
-                                </a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="{{ path('listing_delete', {'id' : listing.id}) }}" class="card-link">
-                                    <i class="fas fa-trash"></i> {{ 'listing.delete'|trans(domain = 'listing') }}
-                                </a>
-                            </li>
-                        </ul>
+                        {% if listing.items is empty %}
+                            <p class="card-text">{{ 'listing.is_empty'|trans(domain = 'listing') }}</p>
+                        {% endif %}
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% if listing.items is not empty %}
+                            {% for item in listing.items %}
+                                <li class="list-group-item">{{ item.name }}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                    <div class="card-body text-right">
+
+                        <a href="{{ path('item_create',{'listing_id' : listing.id}) }}"
+                           class="btn btn-success btn-circle pull-right">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                        <a href="{{ path('listing_show', {'id' : listing.id}) }}"
+                           class="btn btn-primary btn-circle"
+                           alt="{{ 'listing.view'|trans(domain = 'listing') }}">
+                            <i class="fas fa-eye"></i>
+                        </a>
+                        <a href="{{ path('listing_edit', {'id' : listing.id}) }}"
+                           class="btn btn-primary btn-circle"
+                           alt="{{ 'listing.edit'|trans(domain = 'listing') }}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="{{ path('listing_delete', {'id' : listing.id}) }}"
+                           class="btn btn-danger btn-circle"
+                           alt="{{ 'listing.delete'|trans(domain = 'listing') }}">
+                            <i class="fas fa-trash"></i>
+                        </a>
+
                     </div>
                 </div>
             </div>

@@ -2,3 +2,4 @@ listing.create : Create the listing
 listing.view : view the listing
 listing.edit : Edit the listing
 listing.delete : Delete the listing
+listing.is_empty : This listing is empty.

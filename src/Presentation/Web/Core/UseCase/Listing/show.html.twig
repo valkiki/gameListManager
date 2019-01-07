@@ -7,5 +7,5 @@
             <a href="{{ path('item_delete', {'id' : item.id}) }}">{{ 'item.delete'|trans(domain = 'item') }}</a>
         </p>
     {% endfor %}
-    <a href="{{ path('item_create', {'listing_id' : listing.id}) }}">{{ 'item.add'|trans(domain = 'item') }}</a>
+    <a href="{{ path('item_create', {'listing_id' : listing.id}) }}">{{ 'item.create'|trans(domain = 'item') }}</a>
 {% endblock %}
