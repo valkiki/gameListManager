@@ -2,27 +2,32 @@
 {% block body %}
     <div class="row">
         {% for listing in listings %}
-            <div class="col-sm-3 mb-3">
+            <div class="col-sm-12 mb-3">
+
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ listing.name }}</h5>
+                        {% if listing.items is empty %}
+                            <p class="card-text">{{ 'listing.is_empty'|trans(domain = 'listing') }}</p>
+                        {% endif %}
+                    </div>
+                    {% if listing.items is not empty %}
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <a href="{{ path('listing_show', {'id' : listing.id}) }}" class="card-link">
-                                    <i class="fas fa-eye"></i> {{ 'listing.view'|trans(domain = 'listing') }}
-                                </a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="{{ path('listing_edit', {'id' : listing.id}) }}" class="card-link">
-                                    <i class="fas fa-edit"></i> {{ 'listing.edit'|trans(domain = 'listing') }}
-                                </a>
-                            </li>
-                            <li class="list-group-item">
-                                <a href="{{ path('listing_delete', {'id' : listing.id}) }}" class="card-link">
-                                    <i class="fas fa-trash"></i> {{ 'listing.delete'|trans(domain = 'listing') }}
-                                </a>
-                            </li>
+                            {% for item in listing.items %}
+                                <li class="list-group-item">{{ item.name }}</li>
+                            {% endfor %}
                         </ul>
+                    {% endif %}
+                    <div class="card-body">
+                        <a href="{{ path('listing_show', {'id' : listing.id}) }}" class="card-link">
+                            <i class="fas fa-eye"></i> {{ 'listing.view'|trans(domain = 'listing') }}
+                        </a>
+                        <a href="{{ path('listing_edit', {'id' : listing.id}) }}" class="card-link">
+                            <i class="fas fa-edit"></i> {{ 'listing.edit'|trans(domain = 'listing') }}
+                        </a>
+                        <a href="{{ path('listing_delete', {'id' : listing.id}) }}" class="card-link">
+                            <i class="fas fa-trash"></i> {{ 'listing.delete'|trans(domain = 'listing') }}
+                        </a>
                     </div>
                 </div>
             </div>
