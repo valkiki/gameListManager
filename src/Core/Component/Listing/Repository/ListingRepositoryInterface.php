@@ -12,7 +12,9 @@ interface ListingRepositoryInterface
 
     public function find(int $id): Listing;
 
-    public function add(Listing $listing): void;
+    public function create(Listing $listing): void;
+
+    public function update(Listing $listing): void;
 
     public function delete(Listing $listing): void;
 }

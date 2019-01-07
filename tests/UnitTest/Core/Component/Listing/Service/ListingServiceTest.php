@@ -37,17 +37,37 @@ class ListingServiceTest extends AbstractIntegrationTest
     /**
      * @test
      */
-    public function postSuccessfully()
+    public function createSuccessfully()
     {
         $listing = new Listing();
         $listing->setId(1);
         $listing->setName('toto');
 
-        $this->service->post($listing);
+        $this->service->create($listing);
 
         $listings = $this->entityManager
             ->getRepository(Listing::class)
             ->findBy(['name' => 'toto']);
+
+        $this->assertCount(1, $listings);
+    }
+
+    /**
+     * @test
+     */
+    public function updateSuccessfully()
+    {
+        $listing = $this->entityManager
+            ->getRepository(Listing::class)
+            ->findOneBy(['name' => 'My first listing']);
+
+        $listing->setName('My first listing after update');
+
+        $this->service->update($listing);
+
+        $listings = $this->entityManager
+            ->getRepository(Listing::class)
+            ->findBy(['name' => 'My first listing after update']);
 
         $this->assertCount(1, $listings);
     }

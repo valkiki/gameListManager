@@ -50,10 +50,24 @@ class ListingService
     /**
      * @param Listing $listing
      */
-    public function post(Listing $listing): void
+    public function create(Listing $listing): void
     {
         try {
-            $this->listingRepository->add($listing);
+            $this->listingRepository->create($listing);
+            $this->notificationService->notify(
+                new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'listing.post.success')
+            );
+        } catch (\Exception $exception) {
+            $this->notificationService->notify(
+                new FlashbagNotification(FlashbagNotification::ALERT_ERROR, 'listing.post.error')
+            );
+        }
+    }
+
+    public function update(Listing $listing): void
+    {
+        try {
+            $this->listingRepository->create($listing);
             $this->notificationService->notify(
                 new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'listing.post.success')
             );
@@ -71,12 +85,18 @@ class ListingService
     {
         try {
             $this->listingRepository->delete($listing);
-            $this->notificationService->notify(
-                new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'listing.delete.success')
+            $flashbagNotification = new FlashbagNotification(
+                FlashbagNotification::ALERT_SUCCESS,
+                'listing.delete.success'
             );
         } catch (\Exception $exception) {
+            $flashbagNotification = new FlashbagNotification(
+                FlashbagNotification::ALERT_ERROR,
+                'listing.delete.error'
+            );
+        } finally {
             $this->notificationService->notify(
-                new FlashbagNotification(FlashbagNotification::ALERT_ERROR, 'listing.delete.error')
+                $flashbagNotification
             );
         }
     }
