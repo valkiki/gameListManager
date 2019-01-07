@@ -54,14 +54,31 @@ class ItemServiceTest extends AbstractIntegrationTest
 
         $item = new Item();
         $item->setName('My awesome item');
-        $item->setListing($listing);
 
-        $this->service->add($item);
+        $this->service->add($listing, $item);
 
         $items = $this->entityManager
             ->getRepository(Item::class)
             ->findBy(['name' => 'My awesome item']);
 
         $this->assertCount(1, $items);
+    }
+
+    /**
+     * @test
+     */
+    public function deleteSuccessfully()
+    {
+        $item = $this->entityManager
+            ->getRepository(Item::class)
+            ->findOneBy(['name' => 'My first item']);
+
+        $this->service->delete($item);
+
+        $item = $this->entityManager
+            ->getRepository(Item::class)
+            ->findOneBy(['name' => 'My first item']);
+
+        $this->assertNull($item);
     }
 }

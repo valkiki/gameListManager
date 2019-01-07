@@ -6,6 +6,7 @@ namespace App\Core\Component\Item\Service;
 
 use App\Core\Component\Item\Entity\Item;
 use App\Core\Component\Item\Repository\ItemRepositoryInterface;
+use App\Core\Component\Listing\Entity\Listing;
 use App\Core\Port\Notification\Client\Flashbag\FlashbagNotification;
 use App\Core\Port\Notification\NotificationServiceInterface;
 
@@ -38,19 +39,34 @@ class ItemService
     }
 
     /**
+     * @param Listing $listing
      * @param Item $item
      */
-    public function add(Item $item): void
+    public function add(Listing $listing, Item $item): void
     {
         try {
+            $item->setListing($listing);
+
             $this->itemRepository->add($item);
             $this->notificationService->notify(
-                new FlashbagNotification('success', 'item.post.success')
+                new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'item.post.success')
             );
         } catch (\Exception $exception) {
             $this->notificationService->notify(
-                new FlashbagNotification('success', 'item.post.error')
+                new FlashbagNotification(FlashbagNotification::ALERT_ERROR, 'item.post.error')
             );
         }
+    }
+
+    /**
+     * @param Item $item
+     */
+    public function delete(Item $item) : void
+    {
+        $this->itemRepository->delete($item);
+
+        $this->notificationService->notify(
+            new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'item.delete.success')
+        );
     }
 }

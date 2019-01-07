@@ -12,6 +12,9 @@ use App\Core\Port\Notification\NotificationInterface;
  */
 class FlashbagNotification implements NotificationInterface
 {
+    public const ALERT_SUCCESS = "success";
+    public const ALERT_ERROR = "danger";
+
     /**
      * @var string
      */

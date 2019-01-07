@@ -65,23 +65,30 @@ class ItemController extends AbstractController
     public function create(Request $request): ResponseInterface
     {
         $item = new Item();
-
-        $item->setListing(
-            $this->listingService->get((int)$request->get('listing_id'))
-        );
+        $listing = $this->listingService->get((int)$request->get('listing_id'));
 
         $form = $this->createForm(ItemType::class, $item);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->itemService->add($item);
+            $this->itemService->add($listing, $item);
             return $this->responseFactory->redirectToRoute('listing_index');
         }
 
         return $this->templateEngine->renderResponse(
             '@Item/form.html.twig',
             ['create_form' => $form->createView()]
+        );
+    }
+
+    public function delete(Item $item): ResponseInterface
+    {
+        $this->itemService->delete($item);
+
+        return $this->responseFactory->redirectToRoute(
+            'listing_show',
+            ['id' => $item->getListing()->getId()]
         );
     }
 }
