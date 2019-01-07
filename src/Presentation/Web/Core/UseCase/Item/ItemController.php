@@ -73,11 +73,8 @@ class ItemController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->itemService->add($listing, $item);
-            return $this->responseFactory->redirectToRoute(
-                'listing_show',
-                ['id' => $listing_id]
-            );
+            $this->itemService->create($listing, $item);
+            return $this->responseFactory->redirectToRoute('listing_index');
         }
 
         return $this->templateEngine->renderResponse(

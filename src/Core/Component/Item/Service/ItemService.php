@@ -42,7 +42,7 @@ class ItemService
      * @param Listing $listing
      * @param Item $item
      */
-    public function add(Listing $listing, Item $item): void
+    public function create(Listing $listing, Item $item): void
     {
         try {
             $item->setListing($listing);
