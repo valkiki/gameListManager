@@ -53,7 +53,15 @@ final class ListingRepository implements ListingRepositoryInterface
     /**
      * @param Listing $listing
      */
-    public function add(Listing $listing): void
+    public function create(Listing $listing): void
+    {
+        $this->persistenceService->upsert($listing);
+    }
+
+    /**
+     * @param Listing $listing
+     */
+    public function update(Listing $listing): void
     {
         $this->persistenceService->upsert($listing);
     }

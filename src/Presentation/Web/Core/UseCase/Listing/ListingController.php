@@ -85,7 +85,7 @@ class ListingController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->listingService->post($listing);
+            $this->listingService->create($listing);
             return $this->responseFactory->redirectToRoute('listing_index');
         }
 
@@ -107,7 +107,7 @@ class ListingController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->listingService->post($listing);
+            $this->listingService->create($listing);
             return $this->responseFactory->redirectToRoute('listing_index');
         }
 

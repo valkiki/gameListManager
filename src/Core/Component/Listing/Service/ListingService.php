@@ -37,12 +37,19 @@ class ListingService
         $this->notificationService = $notificationService;
     }
 
-    public function getAll()
+    /**
+     * @return array
+     */
+    public function getAll() : array
     {
         return $this->listingRepository->findAll();
     }
 
-    public function get(int $id)
+    /**
+     * @param int $id
+     * @return Listing
+     */
+    public function get(int $id) : Listing
     {
         return $this->listingRepository->find($id);
     }
@@ -50,17 +57,42 @@ class ListingService
     /**
      * @param Listing $listing
      */
-    public function post(Listing $listing): void
+    public function create(Listing $listing): void
     {
         try {
-            $this->listingRepository->add($listing);
-            $this->notificationService->notify(
-                new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'listing.post.success')
+            $this->listingRepository->create($listing);
+            $flashbagNotification = new FlashbagNotification(
+                FlashbagNotification::ALERT_SUCCESS,
+                'listing.create.success'
             );
         } catch (\Exception $exception) {
-            $this->notificationService->notify(
-                new FlashbagNotification(FlashbagNotification::ALERT_ERROR, 'listing.post.error')
+            $flashbagNotification = new FlashbagNotification(
+                FlashbagNotification::ALERT_ERROR,
+                'listing.create.error'
             );
+        } finally {
+            $this->notificationService->notify($flashbagNotification);
+        }
+    }
+
+    /**
+     * @param Listing $listing
+     */
+    public function update(Listing $listing): void
+    {
+        try {
+            $this->listingRepository->create($listing);
+            $flashbagNotification = new FlashbagNotification(
+                FlashbagNotification::ALERT_SUCCESS,
+                'listing.update.success'
+            );
+        } catch (\Exception $exception) {
+            $flashbagNotification = new FlashbagNotification(
+                FlashbagNotification::ALERT_ERROR,
+                'listing.update.error'
+            );
+        } finally {
+            $this->notificationService->notify($flashbagNotification);
         }
     }
 
@@ -71,13 +103,17 @@ class ListingService
     {
         try {
             $this->listingRepository->delete($listing);
-            $this->notificationService->notify(
-                new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'listing.delete.success')
+            $flashbagNotification = new FlashbagNotification(
+                FlashbagNotification::ALERT_SUCCESS,
+                'listing.delete.success'
             );
         } catch (\Exception $exception) {
-            $this->notificationService->notify(
-                new FlashbagNotification(FlashbagNotification::ALERT_ERROR, 'listing.delete.error')
+            $flashbagNotification = new FlashbagNotification(
+                FlashbagNotification::ALERT_ERROR,
+                'listing.delete.error'
             );
+        } finally {
+            $this->notificationService->notify($flashbagNotification);
         }
     }
 }

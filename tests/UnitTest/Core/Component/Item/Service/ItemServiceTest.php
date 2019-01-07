@@ -55,7 +55,7 @@ class ItemServiceTest extends AbstractIntegrationTest
         $item = new Item();
         $item->setName('My awesome item');
 
-        $this->service->add($listing, $item);
+        $this->service->create($listing, $item);
 
         $items = $this->entityManager
             ->getRepository(Item::class)

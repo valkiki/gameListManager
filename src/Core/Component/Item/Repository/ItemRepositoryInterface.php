@@ -12,7 +12,7 @@ interface ItemRepositoryInterface
 
     public function find(int $id): Item;
 
-    public function add(Item $item): void;
+    public function create(Item $item): void;
 
     public function delete(Item $item): void;
 }
