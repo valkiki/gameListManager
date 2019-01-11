@@ -45,7 +45,7 @@ final class ListingRepository implements ListingRepositoryInterface
      * @param int $id
      * @return Listing
      */
-    public function find(int $id): Listing
+    public function find(int $id): ?Listing
     {
         return $this->entityRepository->find($id);
     }

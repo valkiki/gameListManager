@@ -49,7 +49,7 @@ class ListingService
      * @param int $id
      * @return Listing
      */
-    public function get(int $id) : Listing
+    public function get(int $id) : ?Listing
     {
         return $this->listingRepository->find($id);
     }

@@ -36,8 +36,6 @@ services:
     class: App\Presentation\Api\Graphql\Listing\ListingResolver
     tags:
       - {name: overblog_graphql.resolver, method: "resolveListings"}
-
-  App\GraphQL\Resolver\ItemResolver:
-    class: App\Presentation\Api\Graphql\Item\ItemResolver
-    tags:
-      - {name: overblog_graphql.resolver, method: "resolveItems"}
+      - {name: overblog_graphql.resolver, method: "resolveListing"}
+      - {name: overblog_graphql.resolver, method: "resolveCreateListing"}
+      - {name: overblog_graphql.resolver, method: "resolveDeleteListing"}

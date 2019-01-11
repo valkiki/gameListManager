@@ -20,12 +20,4 @@ class ItemResolver
     {
         $this->itemService = $itemService;
     }
-
-    /**
-     * @return array
-     */
-    public function resolveItems(Argument $arguments) : array
-    {
-        return $this->itemService->getItemsByListing($arguments['listing']);
-    }
 }

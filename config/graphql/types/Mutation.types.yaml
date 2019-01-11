@@ -1,0 +1,26 @@
+Mutation:
+  type: object
+  config:
+    fields:
+      createListing:
+        type: "Listing!"
+        args:
+          input:
+            description: "Listing to create"
+            type: "ListingPayload"
+        resolve: '@=resolver("App\\GraphQL\\Resolver\\ListingResolver::resolveCreateListing", [args])'
+      deleteListing:
+        type: "Int"
+        args:
+          id:
+            description: "ID of the listing to delete."
+            type: "Int!"
+        resolve: '@=resolver("App\\GraphQL\\Resolver\\ListingResolver::resolveDeleteListing", [args])'
+
+ListingPayload:
+  type: input-object
+  config:
+    fields:
+      name:
+        type: "String!"
+        description: "Name of the listing to update"

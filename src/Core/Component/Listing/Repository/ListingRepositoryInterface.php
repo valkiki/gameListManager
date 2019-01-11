@@ -10,7 +10,7 @@ interface ListingRepositoryInterface
 {
     public function findAll(): array;
 
-    public function find(int $id): Listing;
+    public function find(int $id): ?Listing;
 
     public function create(Listing $listing): void;
 

@@ -5,10 +5,10 @@ Query:
       getAllListings:
         type: "[Listing!]!"
         resolve: '@=resolver("App\\GraphQL\\Resolver\\ListingResolver::resolveListings")'
-      getAllItemsOfListing:
-        type: "[Item!]!"
+      getListingById:
+        type: "Listing"
         args:
-          listing:
+          id:
             description: "Listing ID"
             type: "Int"
-        resolve: '@=resolver("App\\GraphQL\\Resolver\\ItemResolver::resolveItems", [args])'
+        resolve: '@=resolver("App\\GraphQL\\Resolver\\ListingResolver::resolveListing", [args])'

@@ -6,3 +6,5 @@ Listing:
         type: "Int"
       name:
         type: "String"
+      items:
+        type: "[Item]!"
