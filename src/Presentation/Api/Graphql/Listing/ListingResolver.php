@@ -44,7 +44,6 @@ class ListingResolver
      */
     public function resolveCreateListing(Argument $arguments) : Listing
     {
-        dump($arguments);
         $listing = new Listing();
         $listing->setName($arguments['name']);
 
