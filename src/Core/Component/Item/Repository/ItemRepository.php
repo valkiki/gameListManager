@@ -46,6 +46,22 @@ class ItemRepository implements ItemRepositoryInterface
     }
 
     /**
+     * @param array $criteria
+     * @param array|null $orderBy
+     * @param null $limit
+     * @param null $offset
+     * @return array
+     */
+    public function findBy(
+        array $criteria,
+        ?array $orderBy = null,
+        $limit = null,
+        $offset = null
+    ): array {
+        return $this->entityRepository->findBy($criteria, $orderBy, $limit, $offset);
+    }
+
+    /**
      * @param Item $item
      */
     public function create(Item $item): void

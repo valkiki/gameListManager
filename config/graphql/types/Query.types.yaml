@@ -1,0 +1,14 @@
+Query:
+  type: object
+  config:
+    fields:
+      getAllListings:
+        type: "[Listing!]!"
+        resolve: '@=resolver("App\\GraphQL\\Resolver\\ListingResolver::resolveListings")'
+      getAllItemsOfListing:
+        type: "[Item!]!"
+        args:
+          listing:
+            description: "Listing ID"
+            type: "Int"
+        resolve: '@=resolver("App\\GraphQL\\Resolver\\ItemResolver::resolveItems", [args])'

@@ -39,6 +39,14 @@ class ItemService
     }
 
     /**
+     * @return array
+     */
+    public function getAll(): array
+    {
+        return $this->itemRepository->findAll();
+    }
+
+    /**
      * @param Listing $listing
      * @param Item $item
      */
@@ -61,12 +69,23 @@ class ItemService
     /**
      * @param Item $item
      */
-    public function delete(Item $item) : void
+    public function delete(Item $item): void
     {
         $this->itemRepository->delete($item);
 
         $this->notificationService->notify(
             new FlashbagNotification(FlashbagNotification::ALERT_SUCCESS, 'item.delete.success')
         );
+    }
+
+    /**
+     * @param int $listing_id
+     * @return array
+     */
+    public function getItemsByListing(int $listing_id) : array
+    {
+        return $this->itemRepository->findBy([
+            'listing' => $listing_id
+        ]);
     }
 }

@@ -6,6 +6,6 @@ overblog_graphql:
             auto_discover: false
             types:
                 -
-                    type: graphql
+                    type: yaml
                     dir: "%kernel.project_dir%/config/graphql/types"
                     suffix: ~
